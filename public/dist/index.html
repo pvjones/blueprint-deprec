@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" ng-app="genoscript">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Blueprint</title>
+
+  <!-- gulp -->
+  <link rel="stylesheet" type="text/css" href="./dist/styles.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+</head>
+
+<body>
+<!--HEADER-->
+<header class="section menu flex space-between">
+  <div class="eight columns flex-row">
+    <div class="flex centered menu-item title">
+      <a ui-sref="home">Blueprint</a>
+    </div>
+    <div class="flex centered menu-item" ui-sref-active="active-menu">
+      <a ui-sref="home">Welcome</a>
+    </div>
+    <div class="flex centered menu-item" ui-sref-active="active-menu">
+      <a ui-sref="home({'#':'about'})">About</a>
+    </div>
+  </div>
+  <div class="three columns flex-row menu-button">
+      <div class="button">Start Exploring</div>
+  </div>
+</header>
+
+<header class="section menu flex space-between sticky">
+  <div class="eight columns flex-row">
+    <div class="flex centered menu-item title">
+      <a ui-sref="home">Blueprint</a>
+    </div>
+    <div class="flex centered menu-item" ui-sref-active="active-menu">
+      <a ui-sref="home">Welcome</a>
+    </div>
+    <div class="flex centered menu-item" ui-sref-active="active-menu">
+      <a ui-sref="home({'#':'about'})">About</a>
+    </div>
+  </div>
+  <div class="three columns flex-row menu-button">
+      <div class="button">Start Exploring</div>
+  </div>
+</header>
+
+
+<div class="ui-view-container">
+  <div class="well" ui-view>
+  </div>        
+</div>
+
+<footer class=" flex-row space-between">
+  <div class="footer-box flex centered">
+    <span>Copyright © Paul V Jones 2017</span>
+  </div>
+  <div class="footer-box flex centered">
+      <i class="fa fa-facebook-square" aria-hidden="true"></i>
+      <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+  </div>
+
+</footer>
+
+  <!-- cdn dependencies -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
+
+  <script src="https://use.fontawesome.com/2988cdf027.js"></script>
+  <script src="https://d3js.org/d3.v3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.min.js"></script>
+
+  <!-- gulp -->
+  <script type="text/javascript" src="./dist/js/bundle.js"></script>
+
+</body>
+
+</html>

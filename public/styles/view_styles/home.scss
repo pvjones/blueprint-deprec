@@ -1,0 +1,327 @@
+@font-face {
+  font-family: 'ProximaNova Regular';
+  src: url('./../styles/fonts/ProximaNova-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'ProximaNova Bold';
+  src: url('./../styles/fonts/ProximaNova-Bold.woff') format('woff');
+}
+@font-face {
+  font-family: 'ProximaNova Semibold';
+  src: url('./../styles/fonts/ProximaNova-Semibold.woff') format('woff');
+}
+@font-face {
+  font-family: 'ProximaNova Condensed Semibold';
+  src: url('./../styles/fonts/ProximaNovaCond-Semibold.woff') format('woff');
+}
+@font-face {
+  font-family: 'ProximaNova Condensed Light';
+  src: url('./../styles/fonts/ProximaNovaCond-Light.woff') format('woff');
+}
+
+/* GENERAL STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.centered {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.color-pop {
+  color: #FF652D;
+}
+
+.space-between {
+  justify-content: space-between
+}
+
+/* MAIN MENU STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.menu {
+  background-color: white;
+  align-items: center;
+}
+
+.active-menu {
+  color: black;
+}
+
+div .title a {
+  color: #FF652D;
+}
+
+div.menu-item {
+  padding: 20px;
+}
+
+div.menu-item:active {
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+div.menu-button {
+  justify-content: flex-end;
+  margin: 10px 10px 0px 0px;
+}
+
+.sticky {
+  position: fixed;
+  z-index:-2;
+  opacity:0;
+  transition: opacity 0.3s linear;
+}
+
+.fixed {
+    position: fixed;
+    width: 100vw;
+    top:0px;
+    left:0px;
+    z-index:2;
+    opacity:1;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid rgba(0, 74, 113, 0.2);
+    div.menu-item {
+      padding: 10px;
+    }
+}
+
+/* FOOTER STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+footer {
+  background-color: #004a71;
+  color: white;
+  padding: 25px;
+  font-family: 'ProximaNova Condensed Light';
+  overflow: hidden;
+
+  .footer-box {
+    width: 20%;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .fa {
+    font-size: 4rem;
+    margin-left: 30px;
+    position: relative;
+  }
+}
+
+
+
+/* HOME STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.masthead {
+  position:relative;
+  min-height: 500px;
+  height: 60vh;
+  background-color: #004a71;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  h1 {
+    font-size: 7rem;
+  }
+
+  h5 {
+  margin-bottom: 30px;
+  font-family: 'ProximaNova Condensed Light';
+  font-size: 2rem;
+  }
+  
+  .button {
+    margin-top: 20px;
+    color: #EFEFEF;
+    border: 2px solid #EFEFEF;
+    transition: .1s ease-in-out;
+  }
+
+  .button:hover {
+    color: #004a71;
+    border: 2px solid white;
+    background-color: #EFEFEF;
+  }
+
+}
+
+.helix {
+  position: absolute;
+  bottom: 100px;
+  right: 10px;
+  width: 250px;
+  opacity: 0.4;
+  height: 100%;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.helix-marks {
+  position: absolute;
+  bottom: -30px;
+  right: 200px;
+  width: 50px;
+  opacity: 0.3;
+  height: 100%;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.circles-side {
+  position: absolute;
+  bottom: 0px;
+  left: -80px;
+  width: 250px;
+  opacity: 0.3;
+  height: 100%;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+
+/* ABOUT STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.about {
+  min-height: 300px;
+  padding: 70px 50px;
+  margin-top: 20px;
+  font-family: 'ProximaNova Condensed Light';
+  font-size: 2rem;
+  color: #444;
+  text-align: justify;
+  justify-content: space-between;
+
+  .title {
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'ProximaNova Condensed Semibold';
+  }
+  .row {
+    width: 70%;
+  }
+}
+
+.spacer-border {
+  width: 52%;
+  border-bottom: 1px solid #CCC;
+}
+
+.about-items {
+  min-height: 400px;
+  padding: 50px 50px;
+  padding-bottom: 100px;
+  margin-top: 20px;
+  font-size: 2rem;
+  color: #004a71;
+
+  .title {
+    text-transform: uppercase;
+    text-align: center;
+    h4 {
+      font-size: 4rem;
+    }
+  }
+
+  .about-item {
+    height: 300px;
+    border: 1px solid #004a71;
+    padding: 15px;
+    border-radius: 3px;
+    text-align: center;
+    overflow: scroll;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: rgba(0, 74, 113, 0.05);
+
+    h5 {
+      line-height: 2.5rem;
+    }
+
+    p {
+      font-family: 'ProximaNova Condensed Light';
+      font-size: 1.8rem;
+      line-height: 2rem;
+    }
+  }
+
+  .row {
+    margin-bottom: 30px;
+  }
+  .fa {
+    font-size: 5rem;
+    margin-bottom: 10px;
+  }
+}
+
+.contact-us {
+  padding:100px;
+  font-family: 'ProximaNova Condensed Semibold';
+  text-transform: uppercase;
+  .row {
+    text-align: center;
+    font-size: 4rem;
+  }
+}
+
+.guanine {
+  position: absolute;
+  top: 50px;
+  right: -450px;
+  width: 250px;
+  opacity: 0.5;
+  height: 100%;
+  z-index: -1;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.cytosine {
+  position: absolute;
+  top: 50px;
+  left: -450px;
+  width: 250px;
+  opacity: 0.5;
+  height: 100%;
+  z-index: -1;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.well.ng-enter {
+  transform: translateY(100%);
+}
+
+.well.ng-leave.ng-leave-active {
+  transform: translateY(-100%);
+}
+
+

@@ -160,6 +160,7 @@ const battery = [
 ];
 
 exports.runBattery = function(userTXT, userJSON) {
+  console.log('Hello')
   translateRaw.toJSON(userTXT, userJSON);
 
   let results = [];
