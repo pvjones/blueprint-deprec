@@ -46,9 +46,34 @@
   color: #FF652D;
 }
 
+.color-pop-light {
+  color:#ff7d55;
+}
+
 .space-between {
   justify-content: space-between
 }
+
+  .button-white {
+    margin-top: 20px;
+    color: #EFEFEF;
+    border: 2px solid #EFEFEF;
+    transition: .1s ease-in-out;
+  }
+
+  .button-white:hover {
+    color: #004a71;
+    border: 2px solid white;
+    background-color: #EFEFEF;
+  }
+
+/* UI-VIEW STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.well {
+min-height: calc(100vh - 157px);
+}
+
 
 /* MAIN MENU STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -145,20 +170,6 @@ footer {
   font-family: 'ProximaNova Condensed Light';
   font-size: 2rem;
   }
-  
-  .button {
-    margin-top: 20px;
-    color: #EFEFEF;
-    border: 2px solid #EFEFEF;
-    transition: .1s ease-in-out;
-  }
-
-  .button:hover {
-    color: #004a71;
-    border: 2px solid white;
-    background-color: #EFEFEF;
-  }
-
 }
 
 .helix {

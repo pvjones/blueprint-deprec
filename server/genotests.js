@@ -160,10 +160,11 @@ const battery = [
 ];
 
 exports.runBattery = function(userTXT, userJSON) {
-  console.log('Hello')
+  
   translateRaw.toJSON(userTXT, userJSON);
 
   let results = [];
+
   for (let i = 0; i < battery.length; i++) {
     let genoset = battery[i].name;
     let description = battery[i].description;
@@ -173,10 +174,9 @@ exports.runBattery = function(userTXT, userJSON) {
       result: checkSNPs.forGenotype(genoset, userJSON),
       description: description
     };
-
     results.push(testResult);
   }
-  console.log(results);
   translateRaw.clear(userJSON);
+  return results;
 };
 

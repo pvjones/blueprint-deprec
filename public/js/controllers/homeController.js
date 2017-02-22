@@ -1,4 +1,4 @@
-angular.module('genoscript').controller('homeController', function($scope) {
+angular.module('app').controller('homeController', function($scope) {
 
   $(window).on('scroll', function() {
     var winScroll = $(this).scrollTop();

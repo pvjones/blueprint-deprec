@@ -1,0 +1,52 @@
+<div class="section centered start-main flex-column centered ">
+
+  <div class="container start-items">
+
+      <div class="row title">
+        <h4>Welcome {{username}}, let's start <span class="color-pop-light">Exploring</span></h4>
+      </div>
+
+      <div class="row">
+
+        <div class="one-third column start-item">
+          <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+          <h5>Upload Genome File</h5>
+          <p>If you've been genotyped by one of our supported vendors, you can upload a TXT file containing your raw results. Currently supported vendors include:</p>
+          <ul>
+            <li>23andMe</li>
+            <li>AncestryDNA</li>
+            <li>FamilyTree</li>            
+          </ul>
+          <div class=input-container>
+            <input type="file" name="file" id="file" class="inputfile" on-read-file="uploadGenomeTXT($fileContent)" />
+            <label for="file">Choose a file</label>
+          </div>
+    
+        </div>
+
+        <div class="one-third column start-item">
+          <i class="fa fa-external-link-square" aria-hidden="true"></i>
+          <h5>Connect to 23andMe</h5>
+          <p>If you have been genotyped by 23andMe, you can connect your 23andMe results with our tools. We'll need access to the profile name(s) in your 23andMe account. We do not store or use this data.</p>
+          <div class="input-container">
+            <div class="button button-white">Connect</div>
+          </div>
+        </div>
+
+        <div class="one-third column start-item">
+          <i class="fa fa-id-card-o" aria-hidden="true"></i>
+          <h5>Load Demo Genome</h5>
+          <p>This will load a sample genome. In this case, the genome represents a 50 year-old caucasian male.</p>
+          <div class="input-container">
+            <div class="button button-white">Load Sample</div>
+          </div>
+        </div>
+
+      </div>
+
+  </div> 
+
+</div>
+
+
+
