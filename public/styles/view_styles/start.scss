@@ -112,4 +112,73 @@
   outline: 0; 
 }
 
+// MODAL STYLING
 
+.upload-message-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 40, 70, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    animation-name: fadeIn;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-delay: 0.7s;
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            z-index: 2;
+        }
+
+        100% {
+            opacity: 1;
+            z-index: 2;
+        }
+    }
+
+    .upload-message-box {
+      width: 450px;
+      height: 300px;
+      font-size: 3rem;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 74, 113, 1);
+      border: 2px solid white;
+      border-radius: 3px;
+
+      .upload-title {
+        .big-caps {
+          text-transform: uppercase;
+          font-size: 4rem;
+          font-family: 'ProximaNova Semibold';
+          letter-spacing: 1px;
+        }
+      }
+
+      .icon-container {
+        font-size: 4rem;
+      }
+
+      .upload-message {
+        width: 66%;
+        text-align: justify;
+        font-size: 2rem;
+        line-height: 2.3rem;
+      }
+
+  }
+}

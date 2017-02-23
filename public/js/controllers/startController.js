@@ -9,17 +9,17 @@
     $scope.username = user.userName;
 
     $scope.uploadGenomeTXT = function(TXT) {
-      console.log("uploadGenomeTXT fired");
-      if (TXT) {
-        $scope.loadingMessage = "Uploading and converting your genotyping results";
-        uploadService.sendGenomeTXT(TXT).then((response) => {
-          console.log(response);
-          $state.go('summary');
-        }, (err) => console.log(err))
+        $scope.showUpload = true;
+        if (TXT) {
+          
+          uploadService.sendGenomeTXT(TXT).then((response) => {
+            console.log(response);
+            $state.go('summary');
+          }, (err) => console.log(err))
+        }
       }
-    }
-  
+      /******************** submitForm ********************/
+    
   } // END OF CONTROLLER FUNCTION
 
 })(); // END OF IIFE
-

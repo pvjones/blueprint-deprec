@@ -1,2 +1,2 @@
-SELECT MAX(genomeId) FROM genotypeResults
-WHERE userId = $1
+SELECT MAX(genomeid) FROM genotyperesults
+WHERE userid = $1

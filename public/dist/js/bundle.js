@@ -89,9 +89,8 @@
 (function () {
   'use strict';
 
-  var app = angular.module('app');
+  angular.module('app').directive('onReadFile', function ($parse) {
 
-  app.directive('onReadFile', function ($parse) {
     return {
       restrict: 'A',
       scope: false,
@@ -101,7 +100,9 @@
           var reader = new FileReader();
           reader.onload = function (onLoadEvent) {
             scope.$apply(function () {
-              fn(scope, { $fileContent: onLoadEvent.target.result });
+              fn(scope, {
+                $fileContent: onLoadEvent.target.result
+              });
             });
           };
           reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
@@ -112,35 +113,79 @@
 })();
 'use strict';
 
-angular.module('app').controller('homeController', function ($scope, user) {
+(function () {
+  angular.module('app').service('authService', authService);
 
-  // Auth
-  $scope.userName = user.userName;
-  $scope.isAuthed = user.isAuthed;
+  function authService($http) {
 
-  console.log($scope.isAuthed);
+    this.getUser = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/auth/user'
+      }).then(function (res) {
+        console.log(res.data[0]);
+        return res.data[0];
+      });
+    };
+  }
+})();
+'use strict';
 
-  // Parallax scroll effects
-  $(window).on('scroll', function () {
-    var winScroll = $(this).scrollTop();
+(function () {
+  angular.module('app').service('uploadService', uploadService);
 
-    $('.helix').css({
-      'transform': 'translateY(-' + winScroll / 15 + '%)'
+  function uploadService($http, $q) {
+
+    this.sendGenomeTXT = function (uploadTXT) {
+      var deferred = $q.defer();
+      $http({
+        method: 'POST',
+        url: '/api/upload',
+        data: { file: uploadTXT }
+      }).then(function (res) {
+        deferred.resolve(res.data);
+      }).catch(function (res) {
+        deferred.reject(res);
+      });
+      return deferred.promise;
+    };
+  } //END OF SVC FUNC
+})(); //END OF IIFE
+'use strict';
+
+(function () {
+  angular.module('app').controller('homeController', homeController);
+
+  function homeController($scope, user) {
+
+    // Auth
+    $scope.userName = user.userName;
+    $scope.isAuthed = user.isAuthed;
+
+    console.log($scope.isAuthed);
+
+    // Parallax scroll effects
+    $(window).on('scroll', function () {
+      var winScroll = $(this).scrollTop();
+
+      $('.helix').css({
+        'transform': 'translateY(-' + winScroll / 15 + '%)'
+      });
+      $('.helix-marks').css({
+        'transform': 'translate(-' + winScroll / 7 + '%, -' + winScroll / 15 + '%)'
+      });
+      $('.circles-side').css({
+        'transform': 'translateY(-' + winScroll / 15 + '%)'
+      });
+      $('.guanine').css({
+        'transform': 'translateX(-' + winScroll / 15 + '%)'
+      });
+      $('.cytosine').css({
+        'transform': 'translateX(+' + winScroll / 12 + '%)'
+      });
     });
-    $('.helix-marks').css({
-      'transform': 'translate(-' + winScroll / 7 + '%, -' + winScroll / 15 + '%)'
-    });
-    $('.circles-side').css({
-      'transform': 'translateY(-' + winScroll / 15 + '%)'
-    });
-    $('.guanine').css({
-      'transform': 'translateX(-' + winScroll / 15 + '%)'
-    });
-    $('.cytosine').css({
-      'transform': 'translateX(+' + winScroll / 12 + '%)'
-    });
-  });
-});
+  } // END OF CTRL FUNC
+})(); // END OF IIFE
 'use strict';
 
 (function () {
@@ -185,9 +230,9 @@ angular.module('app').controller('homeController', function ($scope, user) {
     $scope.username = user.userName;
 
     $scope.uploadGenomeTXT = function (TXT) {
-      console.log("uploadGenomeTXT fired");
+      $scope.showUpload = true;
       if (TXT) {
-        $scope.loadingMessage = "Uploading and converting your genotyping results";
+
         uploadService.sendGenomeTXT(TXT).then(function (response) {
           console.log(response);
           $state.go('summary');
@@ -196,6 +241,7 @@ angular.module('app').controller('homeController', function ($scope, user) {
         });
       }
     };
+    /******************** submitForm ********************/
   } // END OF CONTROLLER FUNCTION
 })(); // END OF IIFE
 'use strict';
@@ -209,44 +255,4 @@ angular.module('app').controller('homeController', function ($scope, user) {
     $scope.userid = user.userId;
   } // END OF CTRL FUNC
 })(); // END OF IIFE
-'use strict';
-
-(function () {
-  angular.module('app').service('authService', authService);
-
-  function authService($http) {
-
-    this.getUser = function () {
-      return $http({
-        method: 'GET',
-        url: '/api/auth/user'
-      }).then(function (res) {
-        console.log(res.data[0]);
-        return res.data[0];
-      });
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('uploadService', uploadService);
-
-  function uploadService($http, $q) {
-
-    this.sendGenomeTXT = function (uploadTXT) {
-      var deferred = $q.defer();
-      $http({
-        method: 'POST',
-        url: '/api/upload',
-        data: { file: uploadTXT }
-      }).then(function (res) {
-        deferred.resolve(res.data);
-      }).catch(function (res) {
-        deferred.reject(res);
-      });
-      return deferred.promise;
-    };
-  } //END OF SVC FUNC
-})(); //END OF IIFE
 //# sourceMappingURL=public/bundle.js.map

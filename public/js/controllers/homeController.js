@@ -1,32 +1,37 @@
-angular.module('app').controller('homeController', function($scope, user) {
+(function() {
+  angular
+    .module('app')
+    .controller('homeController', homeController)
 
-  // Auth
-  $scope.userName = user.userName;
-  $scope.isAuthed = user.isAuthed;
+  function homeController($scope, user) {
 
-  console.log($scope.isAuthed);
+    // Auth
+    $scope.userName = user.userName;
+    $scope.isAuthed = user.isAuthed;
 
-  // Parallax scroll effects
-  $(window).on('scroll', function() {
-    var winScroll = $(this).scrollTop();
+    console.log($scope.isAuthed);
 
-    $('.helix').css({
-      'transform': 'translateY(-' + winScroll / 15 + '%)'
+    // Parallax scroll effects
+    $(window).on('scroll', function() {
+      var winScroll = $(this).scrollTop();
+
+      $('.helix').css({
+        'transform': 'translateY(-' + winScroll / 15 + '%)'
+      });
+      $('.helix-marks').css({
+        'transform': 'translate(-' + winScroll / 7 + '%, -' + winScroll / 15 + '%)'
+      });
+      $('.circles-side').css({
+        'transform': 'translateY(-' + winScroll / 15 + '%)'
+      });
+      $('.guanine').css({
+        'transform': 'translateX(-' + winScroll / 15 + '%)'
+      });
+      $('.cytosine').css({
+        'transform': 'translateX(+' + winScroll / 12 + '%)'
+      });
     });
-    $('.helix-marks').css({
-      'transform': 'translate(-' + winScroll / 7 + '%, -' + winScroll / 15 + '%)'
-    });
-    $('.circles-side').css({
-      'transform': 'translateY(-' + winScroll / 15 + '%)'
-    });
-    $('.guanine').css({
-      'transform': 'translateX(-' + winScroll / 15 + '%)'
-    });
-    $('.cytosine').css({
-      'transform': 'translateX(+' + winScroll / 12 + '%)'
-    });
-  });
 
+  } // END OF CTRL FUNC
 
-
-});
+})(); // END OF IIFE
