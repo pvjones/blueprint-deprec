@@ -10,9 +10,14 @@
     <div class="centered">
       <h5>In depth, free, and anonymous</h5>
     </div>
-    <a href="/auth">
-      <div class="button button-white">Get Started</div>
-    </a>
+    <div class="hide-button" ng-class="{'show-button' : !isAuthed}">
+      <a href="/auth">
+        <div class="button button-white">Get Started</div>
+      </a>
+    </div>
+    <div class="hide-button" ng-class="{'show-button' : isAuthed}">
+      <div class="button button-white" ui-sref="summary">Enter</div>
+    </div>
     <div class="circles-side">
       <img src="./../images/circles-side.png">
     </div>

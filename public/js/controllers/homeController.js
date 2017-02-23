@@ -1,5 +1,12 @@
-angular.module('app').controller('homeController', function($scope) {
+angular.module('app').controller('homeController', function($scope, user) {
 
+  // Auth
+  $scope.userName = user.userName;
+  $scope.isAuthed = user.isAuthed;
+
+  console.log($scope.isAuthed);
+
+  // Parallax scroll effects
   $(window).on('scroll', function() {
     var winScroll = $(this).scrollTop();
 
@@ -20,11 +27,6 @@ angular.module('app').controller('homeController', function($scope) {
     });
   });
 
-  $(window).scroll(function() {
-    var sticky = $('.sticky'),
-      scroll = $(window).scrollTop();
-    if (scroll >= 80) sticky.addClass('fixed');
-    else sticky.removeClass('fixed');
-  });
+
 
 });

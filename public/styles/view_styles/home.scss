@@ -43,11 +43,11 @@
 }
 
 .color-pop {
-  color: #FF652D;
+  color: #ff533a;
 }
 
 .color-pop-light {
-  color:#ff7d55;
+  color:#ff533a;
 }
 
 .space-between {
@@ -88,7 +88,7 @@ min-height: calc(100vh - 157px);
 }
 
 div .title a {
-  color: #FF652D;
+  color: #ff533a;
 }
 
 div.menu-item {
@@ -102,6 +102,16 @@ div.menu-item:active {
 div.menu-button {
   justify-content: flex-end;
   margin: 10px 10px 0px 0px;
+  margin-left: auto;
+
+}
+
+div.hide-button {
+  display: none;
+}
+
+div.show-button {
+  display: flex;
 }
 
 .sticky {

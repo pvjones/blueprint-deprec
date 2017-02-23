@@ -4,25 +4,22 @@
     .module('app')
     .controller('startController', startController)
 
-  function startController($scope, authService, uploadService) {
+  function startController($scope, $state, authService, uploadService, user) {
 
-    function getUser() {
-      authService.getUser()
-        .then(function(res) {
-          $scope.username = res.username;
-        });
-    }
-
-    getUser();
+    $scope.username = user.userName;
 
     $scope.uploadGenomeTXT = function(TXT) {
       console.log("uploadGenomeTXT fired");
       if (TXT) {
-        console.log("TXT is truthy")
         $scope.loadingMessage = "Uploading and converting your genotyping results";
-        uploadService.sendGenomeTXT(TXT)
+        uploadService.sendGenomeTXT(TXT).then((response) => {
+          console.log(response);
+          $state.go('summary');
+        }, (err) => console.log(err))
       }
     }
-  }
+  
+  } // END OF CONTROLLER FUNCTION
 
-})();
+})(); // END OF IIFE
+

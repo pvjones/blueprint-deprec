@@ -14,44 +14,66 @@
 </head>
 
 <body>
-<!--HEADER-->
+
+<!--DEFAULT HEADER-->
 <header class="section menu flex space-between" ng-controller="menuController">
-  <div class="eight columns flex-row">
-    <div class="flex centered menu-item title">
-      <a ui-sref="home">Blueprint</a>
+  <div class="container">
+    <div class="flex-row">
+      <div class="flex centered menu-item title">
+        <a ui-sref="home">Blueprint</a>
+      </div>
+      <div class="flex centered menu-item" ui-sref-active="active-menu">
+        <a ui-sref="home">Welcome</a>
+      </div>
+      <div class="flex centered menu-item" ui-sref-active="active-menu">
+        <a ui-sref="home({'#':'about'})">About</a>
+      </div>
+      <div class="menu-button flex centered hide-button" ng-class="{'show-button' : !loggedIn}">
+          <a href="/auth">
+            <div class="button">
+              Start Exploring
+            </div>
+          </a>
+      </div>
+      <div class="menu-button flex centered hide-button" ng-class="{'show-button' : loggedIn }">
+          <a href="/logout">
+            <div class="button">
+              <i class="fa fa-power-off" aria-hidden="true" style="margin-right:10px"></i>End Session
+            </div>
+          </a>
+      </div>
     </div>
-    <div class="flex centered menu-item" ui-sref-active="active-menu">
-      <a ui-sref="home">Welcome</a>
-    </div>
-    <div class="flex centered menu-item" ui-sref-active="active-menu">
-      <a ui-sref="home({'#':'about'})">About</a>
-    </div>
-  </div>
-  <div class="three columns flex-row menu-button" ng-hide="loggedIn">
-      <a href="/auth"><div class="button">Start Exploring</div></a>
-  </div>
-  <div class="three columns flex-row menu-button" ng-hide="!loggedIn">
-      <a href="/logout"><div class="button">End Session</div></a>
   </div>
 </header>
 
+<!--STICKY SCROLL HEADER-->
 <header class="section menu flex space-between sticky" ng-controller="menuController">
-  <div class="eight columns flex-row">
-    <div class="flex centered menu-item title">
-      <a ui-sref="home">Blueprint</a>
+  <div class="container">
+    <div class="flex-row">
+      <div class="flex centered menu-item title">
+        <a ui-sref="home">Blueprint</a>
+      </div>
+      <div class="flex centered menu-item" ui-sref-active="active-menu">
+        <a ui-sref="home">Welcome</a>
+      </div>
+      <div class="flex centered menu-item" ui-sref-active="active-menu">
+        <a ui-sref="home({'#':'about'})">About</a>
+      </div>
+      <div class="menu-button" ng-hide="loggedIn">
+          <a href="/auth">
+            <div class="button">
+              Start Exploring
+            </div>
+          </a>
+      </div>
+      <div class="menu-button" ng-hide="!loggedIn">
+          <a href="/logout">
+            <div class="button">
+              <i class="fa fa-power-off" aria-hidden="true" style="margin-right:10px"></i>End Session
+            </div>
+          </a>
+      </div>
     </div>
-    <div class="flex centered menu-item" ui-sref-active="active-menu">
-      <a ui-sref="home">Welcome</a>
-    </div>
-    <div class="flex centered menu-item" ui-sref-active="active-menu">
-      <a ui-sref="home({'#':'about'})">About</a>
-    </div>
-  </div>
-  <div class="three columns flex-row menu-button" ng-hide="loggedIn">
-      <a href="/auth"><div class="button">Start Exploring</div></a>
-  </div>
-  <div class="three columns flex-row menu-button" ng-hide="!loggedIn">
-      <a href="/logout"><div class="button">End Session</div></a>
   </div>
 </header>
 

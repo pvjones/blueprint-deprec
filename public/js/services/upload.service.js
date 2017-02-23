@@ -5,7 +5,7 @@
 
   function uploadService($http, $q) {
 
-    this.sendGenomeTXT = function(uploadTXT) {
+    this.sendGenomeTXT = (uploadTXT) => {
       var deferred = $q.defer();    
       $http({    
             method: 'POST',
@@ -18,6 +18,7 @@
       });    
       return deferred.promise;
     }
-  }
 
-})();
+  } //END OF SVC FUNC
+
+})(); //END OF IIFE
