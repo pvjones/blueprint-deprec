@@ -101,12 +101,16 @@ passport.deserializeUser((userB, done) => {
   done(null, userB); //PUTS 'USER' ON REQ.USER
 });
 
-//AUTH0 ENDPOINTS
-app.get('/auth', passport.authenticate('auth0')); //initiate auth0 for user
-app.get('/auth/callback', passport.authenticate('auth0', {
+//PASSPORT AND AUTH0 ENDPOINTS
+app.get('/api/auth', passport.authenticate('auth0')); //initiates auth0 for user
+app.get('/api/auth/callback', passport.authenticate('auth0', {
   successRedirect: '/#!/start',
   failureRedirect: '/#!/start-error'
-})); // define what happens after authentication
+})); // defines what happens after authentication
+app.get('/api/logout', function(req, res, next) {
+  req.logout();
+  return res.redirect('/')
+});
 
 ////////////////////////
 // REQ.USER ENDPOINTS //
