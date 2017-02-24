@@ -51,7 +51,7 @@
 }
 
 .space-between {
-  justify-content: space-between
+  justify-content: space-between;
 }
 
   .button-white {
@@ -66,6 +66,13 @@
     border: 2px solid white;
     background-color: #EFEFEF;
   }
+
+.big-caps {
+    font-size: 4.5rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    line-height: 5rem;
+}
 
 /* UI-VIEW STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

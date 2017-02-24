@@ -1,9 +1,9 @@
 (function() {
   angular
     .module('app')
-    .service('uploadService', uploadService)
+    .service('UploadService', UploadService)
 
-  function uploadService($http, $q) {
+  function UploadService($http, $q) {
 
     this.sendGenomeTXT = (uploadTXT) => {
       var deferred = $q.defer();    

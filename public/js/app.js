@@ -13,85 +13,78 @@
     $stateProvider
       .state('home', {
         url: '/home',
-        controller: 'homeController',
+        controller: 'HomeController',
         templateUrl: './../views/home.html',
         resolve: {
-          user: (authService, $state) => {
-            let userObj = {}
+          user: (AuthService, $state) => {
 
-            return authService.getUser()
-              .then((response) => {
-                if (!response) {
-                  console.log('no response in .state resolve');
-                  userObj.isAuthed = false;
-                } else {
-                  userObj.userId = response.userid,
-                  userObj.userName = response.username,
-                  userObj.isAuthed = true;
-                }
-                return userObj;
-              })
-              .catch((err) => {
-                console.log('catch err in .state resolve', err);
-                userObj.isAuthed = false;
-                return userObj;
-              })
+            return AuthService.getUser()
+                .then((response) => {
+                  let currentUser = {
+                    userId: response.userid,
+                    userName: response.username,
+                    isAuthed: true
+                  }
+                  return currentUser
+                })
+                .catch((error) => {
+                  let currentUser = {
+                    isAuthed: false
+                  }
+                  return currentUser
+                });
           }
         }
       })
       .state('start', {
         url: '/start',
-        controller: 'startController',
+        controller: 'StartController',
         templateUrl: './../views/start.html',
         resolve: {
-          user: (authService, $state) => {
-            let userObj = {}
+          user: (AuthService, $state) => {
 
-            return authService.getUser()
-              .then((response) => {
-                if (!response) {
-                  console.log('no response in .state resolve');
-                  userObj.isAuthed = false
-                  $state.go('home');
-                } else {
-                  userObj.userId = response.userid,
-                  userObj.userName = response.username,
-                  userObj.isAuthed = true;
-                }
-                return userObj;
-              })
-              .catch((err) => {
-                console.log('catch err in .state resolve', err);
-                $state.go('home')
-              })
+            return AuthService.getUser()
+                .then((response) => {
+                  let currentUser = {
+                    userId: response.userid,
+                    userName: response.username,
+                    isAuthed: true
+                  }
+                  return currentUser
+                })
+                .catch((error) => {
+                  let currentUser = {
+                    isAuthed: false
+                  }
+                  $state.go('home')
+                  return currentUser
+                });
           }
         }
       })
       .state('summary', {
         url: '/summary',
-        controller: 'summaryController',
+        controller: 'SummaryController',
         templateUrl: './../views/summary.html',
         resolve: {
-          user: (authService, $state, $rootScope) => {
-            let userObj = {}
+          user: (AuthService, $state) => {
 
-            return authService.getUser()
-              .then((response) => {
-                if (!response) {
-                  console.log('no response in .state resolve');
-                  userObj.isAuthed = false
-                  $state.go('home');
-                } else {
-                  userObj.userId = response.userid,
-                  userObj.userName = response.username,
-                  userObj.isAuthed = true;
-                }
-                return userObj;
-              })
-              .catch((err) => {
-                console.log('catch err in .state resolve', err);
-                $state.go('home')
-              })
+            return AuthService.getUser()
+                .then((response) => {
+                  let currentUser = {
+                    userId: response.userid,
+                    userName: response.username,
+                    isAuthed: true
+                  }
+                  return currentUser
+                })
+                .catch((error) => {
+                  let currentUser = {
+                    isAuthed: false
+                  }
+                  $state.go('home')
+                  return currentUser
+                });
           }
         }
       });

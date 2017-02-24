@@ -5,18 +5,17 @@
   <meta charset="utf-8" />
   <title>Blueprint</title>
 
-  <!-- gulp -->
+  <!-- GULP CSS -->
   <link rel="stylesheet" type="text/css" href="./dist/styles.css">
-
+  <!-- jQuery -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
 
 </head>
 
 <body>
 
 <!--DEFAULT HEADER-->
-<header class="section menu flex space-between" ng-controller="menuController">
+<header class="section menu flex space-between" ng-controller="MenuController">
   <div class="container">
     <div class="flex-row">
       <div class="flex centered menu-item title">
@@ -28,14 +27,14 @@
       <div class="flex centered menu-item" ui-sref-active="active-menu">
         <a ui-sref="home({'#':'about'})">About</a>
       </div>
-      <div class="menu-button flex centered hide-button" ng-class="{'show-button' : !loggedIn}">
+      <div class="menu-button flex centered hide-button" ng-class="{ 'show-button' : !isAuthed }">
           <a href="/api/auth">
             <div class="button">
               Start Exploring
             </div>
           </a>
       </div>
-      <div class="menu-button flex centered hide-button" ng-class="{'show-button' : loggedIn }">
+      <div class="menu-button flex centered hide-button" ng-class="{ 'show-button' : isAuthed }">
           <a href="/api/logout">
             <div class="button">
               <i class="fa fa-power-off" aria-hidden="true" style="margin-right:10px"></i>End Session
@@ -47,7 +46,7 @@
 </header>
 
 <!--STICKY SCROLL HEADER-->
-<header class="section menu flex space-between sticky" ng-controller="menuController">
+<header class="section menu flex space-between sticky" ng-controller="MenuController">
   <div class="container">
     <div class="flex-row">
       <div class="flex centered menu-item title">
@@ -107,7 +106,7 @@
   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.min.js"></script>
 
-  <!-- gulp -->
+  <!-- GULP JS -->
   <script type="text/javascript" src="./dist/js/bundle.js"></script>
 
 </body>

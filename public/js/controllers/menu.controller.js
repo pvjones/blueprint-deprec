@@ -2,25 +2,22 @@
 
   angular
     .module('app')
-    .controller('menuController', menuController)
+    .controller('MenuController', MenuController)
 
-  function menuController($scope, $state, authService) {
+  function MenuController($scope, $state, AuthService) {
 
     // Set initial display variables
     $scope.loggedIn = ($scope.loggedIn === true) ? true : false;
 
     function getUser() {
 
-      authService.getUser()
+      AuthService.getUser()
         .then((res) => {
-            $scope.username = res.username;
-            $scope.loggedIn = true;
-            console.log("menuController", $scope.username, $scope.loggedIn)
-          },
-          (err) => {
-            $scope.username = null;
-            $scope.loggedIn = false;
-            console.log("menuController", $scope.username, $scope.loggedIn)
+            $scope.userName = res.username;
+            $scope.isAuthed = true;
+          })
+          .catch((err) => {
+            $scope.isAuthed = false;
           });
     }
 

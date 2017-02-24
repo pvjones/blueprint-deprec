@@ -1,19 +1,21 @@
 (function() {
   angular
     .module('app')
-    .service('authService', authService)
+    .service('AuthService', AuthService)
 
-  function authService($http) {
+  function AuthService($http) {
 
-  this.getUser = function() {
+  this.getUser = () => {
       return $http({
           method: 'GET',
           url: '/api/auth/user'
         })
-        .then(function(res) {
-          console.log(res.data[0])
-          return res.data[0];
-        });
+        .then((response) => {
+          return response.data[0];
+        })
+        .catch((err) => {
+          throw new Error(err);
+        })
     };
 
   }

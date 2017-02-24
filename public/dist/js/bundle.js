@@ -12,70 +12,69 @@
 
     $stateProvider.state('home', {
       url: '/home',
-      controller: 'homeController',
+      controller: 'HomeController',
       templateUrl: './../views/home.html',
       resolve: {
-        user: function user(authService, $state) {
-          var userObj = {};
+        user: function user(AuthService, $state) {
 
-          return authService.getUser().then(function (response) {
-            if (!response) {
-              console.log('no response in .state resolve');
-              userObj.isAuthed = false;
-            } else {
-              userObj.userId = response.userid, userObj.userName = response.username, userObj.isAuthed = true;
-            }
-            return userObj;
-          }).catch(function (err) {
-            console.log('catch err in .state resolve', err);
-            userObj.isAuthed = false;
-            return userObj;
+          return AuthService.getUser().then(function (response) {
+            var currentUser = {
+              userId: response.userid,
+              userName: response.username,
+              isAuthed: true
+            };
+            return currentUser;
+          }).catch(function (error) {
+            var currentUser = {
+              isAuthed: false
+            };
+            return currentUser;
           });
         }
       }
     }).state('start', {
       url: '/start',
-      controller: 'startController',
+      controller: 'StartController',
       templateUrl: './../views/start.html',
       resolve: {
-        user: function user(authService, $state) {
-          var userObj = {};
+        user: function user(AuthService, $state) {
 
-          return authService.getUser().then(function (response) {
-            if (!response) {
-              console.log('no response in .state resolve');
-              userObj.isAuthed = false;
-              $state.go('home');
-            } else {
-              userObj.userId = response.userid, userObj.userName = response.username, userObj.isAuthed = true;
-            }
-            return userObj;
-          }).catch(function (err) {
-            console.log('catch err in .state resolve', err);
+          return AuthService.getUser().then(function (response) {
+            var currentUser = {
+              userId: response.userid,
+              userName: response.username,
+              isAuthed: true
+            };
+            return currentUser;
+          }).catch(function (error) {
+            var currentUser = {
+              isAuthed: false
+            };
             $state.go('home');
+            return currentUser;
           });
         }
       }
     }).state('summary', {
       url: '/summary',
-      controller: 'summaryController',
+      controller: 'SummaryController',
       templateUrl: './../views/summary.html',
       resolve: {
-        user: function user(authService, $state, $rootScope) {
-          var userObj = {};
+        user: function user(AuthService, $state) {
 
-          return authService.getUser().then(function (response) {
-            if (!response) {
-              console.log('no response in .state resolve');
-              userObj.isAuthed = false;
-              $state.go('home');
-            } else {
-              userObj.userId = response.userid, userObj.userName = response.username, userObj.isAuthed = true;
-            }
-            return userObj;
-          }).catch(function (err) {
-            console.log('catch err in .state resolve', err);
+          return AuthService.getUser().then(function (response) {
+            var currentUser = {
+              userId: response.userid,
+              userName: response.username,
+              isAuthed: true
+            };
+            return currentUser;
+          }).catch(function (error) {
+            var currentUser = {
+              isAuthed: false
+            };
             $state.go('home');
+            return currentUser;
           });
         }
       }
@@ -87,82 +86,14 @@
 'use strict';
 
 (function () {
-  'use strict';
+  angular.module('app').controller('HomeController', HomeController);
 
-  angular.module('app').directive('onReadFile', function ($parse) {
-
-    return {
-      restrict: 'A',
-      scope: false,
-      link: function link(scope, element, attrs) {
-        var fn = $parse(attrs.onReadFile);
-        element.on('change', function (onChangeEvent) {
-          var reader = new FileReader();
-          reader.onload = function (onLoadEvent) {
-            scope.$apply(function () {
-              fn(scope, {
-                $fileContent: onLoadEvent.target.result
-              });
-            });
-          };
-          reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
-        });
-      }
-    };
-  });
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('authService', authService);
-
-  function authService($http) {
-
-    this.getUser = function () {
-      return $http({
-        method: 'GET',
-        url: '/api/auth/user'
-      }).then(function (res) {
-        console.log(res.data[0]);
-        return res.data[0];
-      });
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('uploadService', uploadService);
-
-  function uploadService($http, $q) {
-
-    this.sendGenomeTXT = function (uploadTXT) {
-      var deferred = $q.defer();
-      $http({
-        method: 'POST',
-        url: '/api/upload',
-        data: { file: uploadTXT }
-      }).then(function (res) {
-        deferred.resolve(res.data);
-      }).catch(function (res) {
-        deferred.reject(res);
-      });
-      return deferred.promise;
-    };
-  } //END OF SVC FUNC
-})(); //END OF IIFE
-'use strict';
-
-(function () {
-  angular.module('app').controller('homeController', homeController);
-
-  function homeController($scope, user) {
+  function HomeController($scope, user) {
 
     // Auth
+    console.log("user object returned", user);
     $scope.userName = user.userName;
     $scope.isAuthed = user.isAuthed;
-
-    console.log($scope.isAuthed);
 
     // Parallax scroll effects
     $(window).on('scroll', function () {
@@ -190,23 +121,20 @@
 
 (function () {
 
-  angular.module('app').controller('menuController', menuController);
+  angular.module('app').controller('MenuController', MenuController);
 
-  function menuController($scope, $state, authService) {
+  function MenuController($scope, $state, AuthService) {
 
     // Set initial display variables
     $scope.loggedIn = $scope.loggedIn === true ? true : false;
 
     function getUser() {
 
-      authService.getUser().then(function (res) {
-        $scope.username = res.username;
-        $scope.loggedIn = true;
-        console.log("menuController", $scope.username, $scope.loggedIn);
-      }, function (err) {
-        $scope.username = null;
-        $scope.loggedIn = false;
-        console.log("menuController", $scope.username, $scope.loggedIn);
+      AuthService.getUser().then(function (res) {
+        $scope.userName = res.username;
+        $scope.isAuthed = true;
+      }).catch(function (err) {
+        $scope.isAuthed = false;
       });
     }
 
@@ -223,9 +151,9 @@
 
 (function () {
 
-  angular.module('app').controller('startController', startController);
+  angular.module('app').controller('StartController', StartController);
 
-  function startController($scope, $state, authService, uploadService, user) {
+  function StartController($scope, $state, UploadService, user) {
 
     $scope.username = user.userName;
 
@@ -233,7 +161,7 @@
       $scope.showUpload = true;
       if (TXT) {
 
-        uploadService.sendGenomeTXT(TXT).then(function (response) {
+        UploadService.sendGenomeTXT(TXT).then(function (response) {
           console.log(response);
           $state.go('summary');
         }, function (err) {
@@ -241,18 +169,132 @@
         });
       }
     };
-    /******************** submitForm ********************/
   } // END OF CONTROLLER FUNCTION
 })(); // END OF IIFE
 'use strict';
 
 (function () {
-  angular.module('app').controller('summaryController', summaryController);
+  angular.module('app').controller('SummaryController', SummaryController);
 
-  function summaryController($scope, $state, authService, user) {
+  function SummaryController($scope, $state, user, ResultsService) {
 
-    $scope.username = user.userName;
-    $scope.userid = user.userId;
+    $scope.userName = user.userName;
+    $scope.userId = user.userId;
+
+    var getGenomeResults = function getGenomeResults(userId) {
+      console.log('FIRED');
+      ResultsService.getResultsByUserId(userId).then(function (response) {
+        console.log(response);
+        return ResultsService.cleanseGenotypeResults(response);
+      }).then(function (response) {
+        console.log(response);
+        return response; ////////////////////
+      }).catch(function (err) {
+        return console.log(err);
+      });
+    };
+
+    getGenomeResults($scope.userId).then(function (response) {
+      console.log(response);
+    }).catch(function (err) {
+      console.log(err);
+    });
   } // END OF CTRL FUNC
 })(); // END OF IIFE
+'use strict';
+
+(function () {
+  'use strict';
+
+  angular.module('app').directive('onReadFile', onReadFile);
+
+  function onReadFile($parse) {
+
+    return {
+      restrict: 'A',
+      scope: false,
+      link: function link(scope, element, attrs) {
+        var fn = $parse(attrs.onReadFile);
+        element.on('change', function (onChangeEvent) {
+          var reader = new FileReader();
+          reader.onload = function (onLoadEvent) {
+            scope.$apply(function () {
+              fn(scope, {
+                $fileContent: onLoadEvent.target.result
+              });
+            });
+          };
+          reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
+        });
+      }
+    };
+  };
+})();
+'use strict';
+
+(function () {
+  angular.module('app').service('AuthService', AuthService);
+
+  function AuthService($http) {
+
+    this.getUser = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/auth/user'
+      }).then(function (response) {
+        return response.data[0];
+      }).catch(function (err) {
+        throw new Error(err);
+      });
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('app').service('ResultsService', ResultsService);
+
+  function ResultsService($http) {
+
+    this.getResultsByUserId = function (userId) {
+      console.log("service userId", userId);
+      return $http({
+        method: 'GET',
+        url: '/api/results/' + userId
+      }).then(function (response) {
+        console.log(response);
+        return response.data;
+      }).catch(function (err) {
+        console.log(err);
+        throw new Error(err);
+      });
+    };
+
+    this.cleanseGenotypeResults = function (genotypeResultsObject) {
+      return genotypeResultsObject; ////////////////
+    };
+  }; // END OF SVC FUNC
+})(); // END OF IIFE
+'use strict';
+
+(function () {
+  angular.module('app').service('UploadService', UploadService);
+
+  function UploadService($http, $q) {
+
+    this.sendGenomeTXT = function (uploadTXT) {
+      var deferred = $q.defer();
+      $http({
+        method: 'POST',
+        url: '/api/upload',
+        data: { file: uploadTXT }
+      }).then(function (res) {
+        deferred.resolve(res.data);
+      }).catch(function (res) {
+        deferred.reject(res);
+      });
+      return deferred.promise;
+    };
+  } //END OF SVC FUNC
+})(); //END OF IIFE
 //# sourceMappingURL=public/bundle.js.map

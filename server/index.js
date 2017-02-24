@@ -9,10 +9,7 @@ const express = require('express'),
 
 const config = require('./config');
 
-const genotests = require('./genotests');
-const userController = require('./controllers/userController')
-
-const app = express();
+const app = module.exports = express();
 
 // bodyParser setup
 app.use(bodyParser.urlencoded({
@@ -43,6 +40,11 @@ const massiveInstance = massive.connectSync({
 
 app.set('db', massiveInstance);
 const db = app.get('db');
+
+// CONTROLLERS MUST BE SET AFTER APP.SET('DB')
+const genomeService = require('./genomeJS/genomeService');
+const genomeController = require('./controllers/genomeController');
+const userController = require('./controllers/userController');
 
 /////////////////////////
 // DATABASE TABLE INIT //
@@ -105,7 +107,7 @@ passport.deserializeUser((userB, done) => {
 app.get('/api/auth', passport.authenticate('auth0')); //initiates auth0 for user
 app.get('/api/auth/callback', passport.authenticate('auth0', {
   successRedirect: '/#!/start',
-  failureRedirect: '/#!/start-error'
+  failureRedirect: '/#!/start' //Behavior for first-time-logins -- **NEEDS TO BE A SEPARATE PAGE, WITH THE WAY MY RESOLVES ARE CURRENTLY SET UP?
 })); // defines what happens after authentication
 app.get('/api/logout', function(req, res, next) {
   req.logout();
@@ -122,58 +124,15 @@ app.get('/api/auth/user', userController.currentUser);
 // GENOMEJS ENDPOINTS //
 ////////////////////////
 
-//FILE UPLOAD
-app.post('/api/upload', function(req, res, next) {
+app.post('/api/upload', genomeService.translateToJSON, genomeService.runBattery, genomeController.getMaxGenomeId, genomeController.storeGenomeResults, genomeService.clearUserJSON, (req, res, next) => {
+  return res.status(200)
+    .json('Results stored in database');
+})
 
-  let userId = req.user[0].userid;
-  let genomeId = 1;
-
-  let userJSON = path.join(__dirname, './../userTMP/userJSON.json');
-  let userTXT = req.body.file;
-
-  // Check for previously uploaded genome results
-  db.genotypes.checkGenomeId([userId], (err, result) => {
-    if (err) {
-      console.error('User genome not found', err);
-    } else {
-      let tempId = result[0].max;
-      genomeId = ++tempId;
-    }
-
-    // Then get gql results
-    let testResultsArray = genotests.runBattery(userTXT, userJSON);
-
-    // Then store gql results in genotypeResultsTable
-    testResultsArray.forEach((elem, index, array) => {
-      db.genotypes.insertGenotype([
-        userId,
-        genomeId,
-        elem.genosetName,
-        elem.genosetDesc,
-        elem.genosetLongDesc,
-        elem.resultType,
-        elem.resultName,
-        elem.resultDescTrue,
-        elem.resultDescFalse,
-        elem.resultBool
-      ], (err, result) => {
-        if (err) {
-          console.error(err);
-          return res.status(404)
-            .json(err);
-        }
-      })
-    })
-
-    return res.status(200)
-      .json('Results stored in database');
-  })
-
-
-
+app.get('/api/results/:userId', genomeController.getMaxGenomeId, genomeController.getAllGenomeResultsByUserId, (req, res, next) => {
+  return res.status(200)
+    .json(req.body.allGenomeResults)
 });
-
-
 
 ///////////////
 // LISTEN UP //

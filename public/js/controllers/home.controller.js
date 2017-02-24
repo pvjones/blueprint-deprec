@@ -1,15 +1,14 @@
 (function() {
   angular
     .module('app')
-    .controller('homeController', homeController)
+    .controller('HomeController', HomeController)
 
-  function homeController($scope, user) {
+  function HomeController($scope, user) {
 
     // Auth
+    console.log("user object returned", user)
     $scope.userName = user.userName;
     $scope.isAuthed = user.isAuthed;
-
-    console.log($scope.isAuthed);
 
     // Parallax scroll effects
     $(window).on('scroll', function() {
@@ -33,5 +32,4 @@
     });
 
   } // END OF CTRL FUNC
-
 })(); // END OF IIFE

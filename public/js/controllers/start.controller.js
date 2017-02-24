@@ -2,9 +2,9 @@
 
   angular
     .module('app')
-    .controller('startController', startController)
+    .controller('StartController', StartController)
 
-  function startController($scope, $state, authService, uploadService, user) {
+  function StartController($scope, $state, UploadService, user) {
 
     $scope.username = user.userName;
 
@@ -12,13 +12,12 @@
         $scope.showUpload = true;
         if (TXT) {
           
-          uploadService.sendGenomeTXT(TXT).then((response) => {
+          UploadService.sendGenomeTXT(TXT).then((response) => {
             console.log(response);
             $state.go('summary');
           }, (err) => console.log(err))
         }
       }
-      /******************** submitForm ********************/
     
   } // END OF CONTROLLER FUNCTION
 
