@@ -1,8 +1,9 @@
 /****** dropdown-select *******/
 .wrap-dd-select {
   position: relative;
-  padding-top: 5px;
-  padding: 4px;
+  display: flex;
+  align-items: center;
+  padding: 4px 4px 4px 10px;
   font-size: 1.5rem;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -35,6 +36,7 @@
   border: none; }
 
 .wrap-dd-select .dropdown {
+  margin-top: 20px;
   position: absolute;
   top: 100%;
   left: 0;
@@ -48,6 +50,8 @@
   font-weight: normal;
   list-style: none;
   visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.2s,opacity 0.2s linear;
   max-height: 300px;
   overflow-y: auto;
   /*Provide an auto overflow to display scroll*/ }
@@ -108,7 +112,9 @@
   border-color: rgba(0, 0, 0, 0.1) transparent; }
 
 .wrap-dd-select.active .dropdown {
-  visibility: visible; }
+  visibility: visible;
+  opacity: 1;
+  transition: opacity linear 0.2s; }
 
 /****** dropdown-menu *******/
 .wrap-dd-menu {
@@ -134,7 +140,9 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   font-weight: normal;
   list-style: none;
-  visibility: hidden; }
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.2s,opacity 0.2s linear; }
 
 .wrap-dd-menu .dropdown li.divider {
   padding: 2px 0;
@@ -192,7 +200,10 @@
   border-color: rgba(0, 0, 0, 0.1) transparent; }
 
 .wrap-dd-menu .dropdown.active {
-  visibility: visible; }
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0.2s;
+  transition-delay: 0s; }
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
@@ -1101,10 +1112,14 @@ there.
 
 /* MAIN MENU STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+header .container {
+  max-width: 1230px; }
+
 .menu {
   background-color: white;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 74, 113, 0.2); }
+  border-bottom: 1px solid rgba(0, 74, 113, 0.2);
+  font-size: 2rem; }
 
 .active-menu {
   color: black; }
@@ -1336,6 +1351,8 @@ input[disabled] + label:hover {
     margin-bottom: 20px; }
     .start-items .title h4 {
       font-size: 4rem; }
+    .start-items .title h4, .start-items .title h5 {
+      margin-bottom: 8px; }
   .start-items .start-item-container {
     height: 100%; }
 
@@ -1470,9 +1487,11 @@ input[disabled] + label:hover {
       line-height: 2.3rem; }
 
 .summary-subheader {
-  background-color: rgba(0, 54, 113, 0.2);
+  background-color: rgba(0, 54, 113, 0.08);
   border-bottom: 1px solid rgba(0, 74, 113, 0.2);
   padding: 10px; }
+  .summary-subheader .flex-row {
+    align-items: center; }
   .summary-subheader .summary-subheader-left select {
     padding: 10px;
     height: 30px;

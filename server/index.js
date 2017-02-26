@@ -19,6 +19,7 @@ app.use(bodyParser.json({
   limit: '50mb'
 }));
 
+// session setup
 app.use(session({
   resave: true,
   saveUninitialized: true,
@@ -29,8 +30,7 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + './../public'));
 
-////////////////////
-// DATABASE SETUP //
+/* DATABASE SETUP */
 ////////////////////
 
 const connectionString = 'postgres://postgres:postgres@localhost/blueprint'
@@ -46,9 +46,8 @@ const genomeService = require('./genomeJS/genomeService');
 const genomeController = require('./controllers/genomeController');
 const userController = require('./controllers/userController');
 
-/////////////////////////
-// DATABASE TABLE INIT //
-/////////////////////////
+/* TABLE INIT */
+////////////////
 
 db.init.createUserTable([], (err, result) => {
   if (err) {
@@ -74,8 +73,7 @@ db.init.createUserGenomesTable([], (err, result) => {
   }
 });
 
-/////////////////
-// AUTH0 SETUP //
+/* AUTH0 SETUP */
 /////////////////
 
 passport.use(new Auth0Strategy(config.authConfig, (accessToken, refreshToken, extraParams, profile, done) => {
@@ -122,22 +120,18 @@ app.get('/api/logout', function(req, res, next) {
   return res.redirect('/')
 });
 
-////////////////////////
-// REQ.USER ENDPOINTS //
+/* REQ.USER ENDPOINTS */
 ////////////////////////
 
 app.get('/api/auth/user', userController.currentUser);
 
-////////////////////////
-// GENOMEJS ENDPOINTS //
+/* GENOMEJS ENDPOINTS */
 ////////////////////////
 
 app.post('/api/upload', genomeService.translateToJSON, genomeService.runBattery, genomeController.getMaxGenomeId, genomeController.storeGenomeResults, genomeController.storeUserGenomeClassifiers, (req, res, next) => {
 
   genomeService.clearUserJSON()
   console.log('file size *** ' + req.body.file.length)
-
-  // lilly 15415242
   
   return res.status(200)
     .json('Results stored in database');
@@ -149,9 +143,8 @@ app.get('/api/results/:userId', genomeController.getMaxGenomeId, genomeControlle
     .send(req.body.allGenomeResults)
 });
 
-///////////////
-// LISTEN UP //
-///////////////
+/* LISTEN */
+////////////
 
 app.listen(config.port, function() {
   console.log(`Express is running on ${config.port}`)

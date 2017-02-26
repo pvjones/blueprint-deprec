@@ -1,7 +1,7 @@
 <section class="summary u-full-width">
 
   <div class="row u-full-width summary-subheader">
-    <div class="container row">
+    <div class="container row flex-row">
       <div class="four columns summary-subheader-left">
       
             <div dropdown-select="userGenomeArray"
@@ -9,14 +9,12 @@
               dropdown-item-label="display" >
             </div>
 
-        <div class="u-full-width" id="genome-selector" ng-repeat="item in userGenomeArray" ng-model="selectedGenome">
-        </div>
       </div>
       <div class="four columns">
         <a ui-sref="start">Upload New Genome</a>
       </div>
       <div class="four columns summary-subheader-right">
-        <span>View all results</span>
+        <span><a href="#">View all results</a></span>
       </div>
     </div>
   </div>

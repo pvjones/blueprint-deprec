@@ -1,7 +1,11 @@
 .summary-subheader {
-  background-color: rgba(0, 54, 113, 0.2);;
+  background-color: rgba(0, 54, 113, 0.08);;
   border-bottom: 1px solid rgba(0, 74, 113, 0.2);
   padding: 10px;
+
+  .flex-row {
+    align-items: center;
+  }
 
   .summary-subheader-left {
     select {

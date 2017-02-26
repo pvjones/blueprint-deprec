@@ -2,8 +2,10 @@
 
 .wrap-dd-select {
   position: relative;
-  padding-top: 5px;
-  padding: 4px;
+
+  display: flex;
+  align-items: center;
+  padding: 4px 4px 4px 10px;
 
   font-size: 1.5rem;
 
@@ -44,6 +46,7 @@
 }
 
 .wrap-dd-select .dropdown {
+  margin-top:20px;
   position: absolute;
   top: 100%;
   left: 0;
@@ -57,6 +60,9 @@
   font-weight: normal;
   list-style: none;
   visibility: hidden;
+  opacity: 0;
+  transition:visibility 0s linear 0.2s,opacity 0.2s linear;
+
   max-height: 300px;
   overflow-y: auto; /*Provide an auto overflow to display scroll*/
 }
@@ -127,6 +133,8 @@
 
 .wrap-dd-select.active .dropdown {
   visibility: visible;
+  opacity: 1;
+  transition: opacity linear 0.2s;
 }
 
 /****** dropdown-menu *******/
@@ -156,6 +164,8 @@
   font-weight: normal;
   list-style: none;
   visibility: hidden;
+  opacity: 0;
+  transition:visibility 0s linear 0.2s,opacity 0.2s linear;
 }
 
 .wrap-dd-menu .dropdown li.divider {
@@ -224,4 +234,7 @@
 
 .wrap-dd-menu .dropdown.active {
   visibility: visible;
+  opacity: 1;
+  transition:visibility 0s linear 0.2s;
+  transition-delay: 0s;
 }
