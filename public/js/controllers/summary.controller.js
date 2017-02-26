@@ -1,34 +1,45 @@
-(function () {
+(function() {
   angular
-   .module('app')
-   .controller('SummaryController', SummaryController)
+    .module('app')
+    .controller('SummaryController', SummaryController)
 
-  function SummaryController($scope, $state, user, ResultsService) {
+  function SummaryController($scope, $state, user, ResultsService, $filter) {
 
     $scope.userName = user.userName;
     $scope.userId = user.userId;
 
+    $scope.$watch('ddSelectSelected', (ddSelectSelected) => {
+      console.log(ddSelectSelected)
+    })
+
     let getGenomeResults = (userId) => {
-      console.log('FIRED')
-      ResultsService.getResultsByUserId(userId)
+      return ResultsService.getResultsByUserId(userId)
         .then((response) => {
-          console.log(response)
-          return ResultsService.cleanseGenotypeResults(response);
-        })
-        .then((response) => {
-          console.log(response)
-          return response////////////////////
+          return response
         })
         .catch((err) => console.log(err))
-    }
+    };
 
     getGenomeResults($scope.userId)
       .then((response) => {
-        console.log(response)
+        $scope.userGenomeArray = transformData(response);
+        $scope.ddSelectOptions = $scope.userGenomeArray;
+        $scope.ddSelectSelected = $scope.userGenomeArray[0];
+        console.log()
       })
       .catch((err) => {
         console.log(err)
       })
 
-  } // END OF CTRL FUNC
+    function transformData(response) {
+      if (response) {
+        return response.map(elem => {
+          elem.display = 'GENOME:\xa0\xa0\xa0' + elem.genomename + "\xa0\xa0\xa0" + $filter('date')(new Date(elem.genomedate), 'short');
+          return elem;
+
+        })
+      }
+    }
+
+  }; // END OF CTRL FUNC
 })(); // END OF IIFE

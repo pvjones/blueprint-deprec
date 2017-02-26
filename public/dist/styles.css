@@ -1,3 +1,199 @@
+/****** dropdown-select *******/
+.wrap-dd-select {
+  position: relative;
+  padding-top: 5px;
+  padding: 4px;
+  font-size: 1.5rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  color: #8AA8BD; }
+  .wrap-dd-select li {
+    margin: 0; }
+
+.wrap-dd-select.disabled {
+  cursor: default;
+  color: #5B6A7D; }
+
+.wrap-dd-select:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  margin-top: -3px;
+  border-width: 6px 6px 0 6px;
+  border-style: solid;
+  border-color: #8aa8bd transparent; }
+
+.wrap-dd-select.disabled:after {
+  border: none; }
+
+.wrap-dd-select .dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: white;
+  padding: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.17);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  font-weight: normal;
+  list-style: none;
+  visibility: hidden;
+  max-height: 300px;
+  overflow-y: auto;
+  /*Provide an auto overflow to display scroll*/ }
+
+.wrap-dd-select .dropdown li.divider {
+  padding: 2px 0;
+  background: #e6e8ea; }
+
+.wrap-dd-select .dropdown li.divider-label {
+  background: #e6e8ea;
+  cursor: default;
+  color: #000;
+  padding: 10px 0; }
+
+.wrap-dd-select .dropdown li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #8aa8bd;
+  border-bottom: 1px solid #e6e8ea;
+  box-shadow: inset 0 1px 0 white;
+  cursor: pointer; }
+
+.wrap-dd-select .dropdown li i {
+  float: right;
+  color: inherit; }
+
+.wrap-dd-select .dropdown li:first-of-type a {
+  border-radius: 4px 4px 0 0; }
+
+.wrap-dd-select .dropdown li:last-of-type a {
+  border-radius: 0 0 4px 4px;
+  border: none; }
+
+.wrap-dd-select .dropdown li:hover a {
+  background: #f3f8f8; }
+
+.wrap-dd-select .dropdown:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  bottom: 100%;
+  right: 15px;
+  border-width: 0 6px 6px 6px;
+  border-style: solid;
+  border-color: #fff transparent; }
+
+.wrap-dd-select .dropdown:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  bottom: 100%;
+  right: 13px;
+  border-width: 0 8px 8px 8px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1) transparent; }
+
+.wrap-dd-select.active .dropdown {
+  visibility: visible; }
+
+/****** dropdown-menu *******/
+.wrap-dd-menu {
+  position: relative;
+  width: 200px;
+  margin: 0 auto;
+  padding: 10px; }
+
+.wrap-dd-menu.disabled {
+  cursor: default;
+  color: #5B6A7D; }
+
+.wrap-dd-menu .dropdown {
+  position: absolute;
+  z-index: 1;
+  top: 70%;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 0;
+  border-radius: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.17);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  font-weight: normal;
+  list-style: none;
+  visibility: hidden; }
+
+.wrap-dd-menu .dropdown li.divider {
+  padding: 2px 0;
+  background: #e6e8ea; }
+
+.wrap-dd-menu .dropdown li.divider-label {
+  background: #e6e8ea;
+  cursor: default;
+  color: #000;
+  padding: 10px 0; }
+
+.wrap-dd-menu .dropdown li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #8aa8bd;
+  border-bottom: 1px solid #e6e8ea;
+  box-shadow: inset 0 1px 0 white;
+  cursor: pointer; }
+
+.wrap-dd-menu .dropdown li i {
+  float: right;
+  color: inherit; }
+
+.wrap-dd-menu .dropdown li:first-of-type a {
+  border-radius: 4px 4px 0 0; }
+
+.wrap-dd-menu .dropdown li:last-of-type a {
+  border-radius: 0 0 4px 4px;
+  border: none; }
+
+.wrap-dd-menu .dropdown li:hover a {
+  background: #f3f8f8; }
+
+.wrap-dd-menu .dropdown:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  bottom: 100%;
+  right: 102px;
+  border-width: 0 6px 6px 6px;
+  border-style: solid;
+  border-color: #fff transparent; }
+
+.wrap-dd-menu .dropdown:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  bottom: 100%;
+  right: 100px;
+  border-width: 0 8px 8px 8px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1) transparent; }
+
+.wrap-dd-menu .dropdown.active {
+  visibility: visible; }
+
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -861,6 +1057,12 @@ there.
   display: flex;
   flex-direction: column; }
 
+.flex-stretch {
+  flex: 1; }
+
+.wrap {
+  flex-wrap: wrap; }
+
 .centered {
   justify-content: center;
   align-items: center;
@@ -961,6 +1163,15 @@ footer {
     font-size: 4rem;
     margin-left: 30px;
     position: relative; }
+
+/* INPUT STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+input[disabled] + label {
+  cursor: not-allowed; }
+
+input[disabled] + label:hover {
+  background-color: transparent;
+  color: white; }
 
 /* HOME STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -1125,9 +1336,11 @@ footer {
     margin-bottom: 20px; }
     .start-items .title h4 {
       font-size: 4rem; }
+  .start-items .start-item-container {
+    height: 100%; }
 
 .start-item {
-  min-height: 400px;
+  min-height: 450px;
   border: 1px solid #fff;
   padding: 20px;
   border-radius: 3px;
@@ -1161,6 +1374,15 @@ footer {
   width: 100%; }
   .input-container .button {
     width: 100%; }
+  .input-container input {
+    font-family: 'ProximaNova Condensed Light';
+    font-size: 1.8rem;
+    background-color: rgba(0, 0, 0, 0.15);
+    border: 2px solid white;
+    text-align: center;
+    margin-bottom: 10px; }
+  .input-container .input-text::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.8); }
 
 .inputfile {
   width: 0.1px;
@@ -1247,5 +1469,16 @@ footer {
       font-size: 2rem;
       line-height: 2.3rem; }
 
+.summary-subheader {
+  background-color: rgba(0, 54, 113, 0.2);
+  border-bottom: 1px solid rgba(0, 74, 113, 0.2);
+  padding: 10px; }
+  .summary-subheader .summary-subheader-left select {
+    padding: 10px;
+    height: 30px;
+    margin: 0px;
+    color: rgba(0, 74, 113, 0.6); }
+  .summary-subheader .summary-subheader-right {
+    text-align: right; }
 
 /*# sourceMappingURL=public/maps/styles.css.map */

@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS usergenomes(
+  id SERIAL PRIMARY KEY,
+  genomeid INTEGER NOT NULL,
+  userid INTEGER NOT NULL,
+  genomename VARCHAR(50),
+  genomedate TIMESTAMP NOT NULL
+);

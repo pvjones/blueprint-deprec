@@ -62,16 +62,16 @@ module.exports = {
       resultDescTrue: 'Likely Intolerant',
       resultDescFalse: 'Likely Tolerant'
     }, 
-    {
-      id: 7,
-      genosetName: 'gs122',
-      genosetDesc: 'up to 7x increased likelihood of male pattern baldness',
-      genosetLongDesc: '',
-      resultType: 'Traits',
-      resultName: 'Male Pattern Baldness',
-      resultDescTrue: '7x More Likely',
-      resultDescFalse: 'Average'
-    }, 
+    // {
+    //   id: 7,
+    //   genosetName: 'gs122',
+    //   genosetDesc: 'up to 7x increased likelihood of male pattern baldness',
+    //   genosetLongDesc: '',
+    //   resultType: 'Traits',
+    //   resultName: 'Male Pattern Baldness',
+    //   resultDescTrue: '7x More Likely',
+    //   resultDescFalse: 'Average'
+    // }, 
     {
       id: 8,
       genosetName: 'gs137',

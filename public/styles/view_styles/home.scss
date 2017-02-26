@@ -22,6 +22,7 @@
 /* GENERAL STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+
 .flex {
   display: flex;
 }
@@ -34,6 +35,14 @@
 .flex-column {
   display: flex;
   flex-direction: column;
+}
+
+.flex-stretch {
+  flex: 1;
+}
+
+.wrap {
+  flex-wrap: wrap;
 }
 
 .centered {
@@ -165,7 +174,17 @@ footer {
   }
 }
 
+/* INPUT STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+input[disabled] + label {
+      cursor: not-allowed; 
+    }
+
+input[disabled] + label:hover {
+      background-color: transparent;
+      color: white; 
+    }
 
 /* HOME STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

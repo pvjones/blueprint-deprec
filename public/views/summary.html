@@ -1,1 +1,35 @@
-{{userName}}
+<section class="summary u-full-width">
+
+  <div class="row u-full-width summary-subheader">
+    <div class="container row">
+      <div class="four columns summary-subheader-left">
+      
+            <div dropdown-select="userGenomeArray"
+              dropdown-model="ddSelectSelected"
+              dropdown-item-label="display" >
+            </div>
+
+        <div class="u-full-width" id="genome-selector" ng-repeat="item in userGenomeArray" ng-model="selectedGenome">
+        </div>
+      </div>
+      <div class="four columns">
+        <a ui-sref="start">Upload New Genome</a>
+      </div>
+      <div class="four columns summary-subheader-right">
+        <span>View all results</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-column flex-stretch">
+    <div class="flex-row wrap">
+      <div ng-repeat="">
+        <summary-category-table data="ddSelectSelected">
+        </summary-category-table>
+      </div>
+    </div>
+  </div>
+ 
+</section>
+
+<!-- genomeObj as genomeObj.display for genomeObj in userGenomeArray -->

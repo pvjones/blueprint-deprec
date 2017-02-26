@@ -11,6 +11,7 @@ module.exports = {
 
     db.genotypes.checkMaxGenomeId([userId], (err, result) => {
       if (err) {
+        genomeService.clearUserJSON()
         console.error('No user genomes found');
       } else {
         let tempId = result[0].max;
@@ -25,9 +26,10 @@ module.exports = {
   },
 
   storeGenomeResults: (req, res, next) => {
-    let testResultsArray = req.body.genomeResults
+    let testResultsArray = req.body.genomeResults;
     let userId = req.body.userId;
     let newGenomeId = req.body.newGenomeId;
+
     let itemsProcessed = 0;
       // Then store gql results in genotypeResultsTable
     testResultsArray.forEach((elem, index, array) => {
@@ -45,18 +47,40 @@ module.exports = {
         elem.resultBool
       ], (err, result) => {
         if (err) {
+          genomeService.clearUserJSON()
           console.error(err);
-          return res.status(404)
-                    .json(err);
+                      testResultsArray = null;
+            req.body.genomeResults = null;
         } else {
           itemsProcessed++;
           if (itemsProcessed === testResultsArray.length) {
-            console.log('insertGenotype')
+            testResultsArray = null;
+            req.body.genomeResults = null;
             next();
           }
         }
       })
     })
+  },
+
+  storeUserGenomeClassifiers: (req, res, next) => {
+    let genomeId = req.body.newGenomeId
+    let userId = req.body.userId;
+    let genomeName = req.body.genomeName;
+    let genomeDate = new Date();
+    db.genotypes.insertGenotypeClassifiers([
+        genomeId,
+        userId,
+        genomeName,
+        genomeDate
+      ], (err, result) => {
+        if (err) {
+          console.error(err)
+          next();
+        } else {
+          next();
+        }
+      })
   },
 
   getAllGenomeResultsByUserId: (req, res, next) => {
@@ -79,14 +103,15 @@ module.exports = {
           return res.status(404)
                     .json(err);
         } else {
-          let genomeResultsArray = result;
-          genomeResultsArray.forEach((elem, index, array) => {
-            allGenomeResults.push(elem)
-          })
-
+          let genomeResultsObj = {
+            genomeid: result[0].genomeid,
+            genomename: result[0].genomename,
+            genomedate: result[0].genomedate,
+            genomeresults: result
+          }
+          allGenomeResults.unshift(genomeResultsObj);
           itemsProcessed++;
           if (itemsProcessed === Math.max.apply(Math, userGenomeIds)) {
-            //console.log(allGenomeResults)
             req.body.allGenomeResults = allGenomeResults
             next();
           }
@@ -95,8 +120,10 @@ module.exports = {
     })
   },
 
-  getResultsByUserIdGenomeId: (req, res, next) => {
+  getResultsByGenomeId: (req, res, next) => {
 
   }
 
 };
+
+

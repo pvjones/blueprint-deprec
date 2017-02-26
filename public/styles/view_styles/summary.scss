@@ -1,0 +1,22 @@
+.summary-subheader {
+  background-color: rgba(0, 54, 113, 0.2);;
+  border-bottom: 1px solid rgba(0, 74, 113, 0.2);
+  padding: 10px;
+
+  .summary-subheader-left {
+    select {
+      padding: 10px;
+      height: 30px;
+      margin: 0px;
+      color: rgba(0, 74, 113, 0.6);
+    }
+  }
+
+  .summary-subheader-right {
+    text-align: right;
+  }
+}
+
+.summary-table-container {
+  
+}

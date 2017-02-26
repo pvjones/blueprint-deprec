@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('app', ['ui.router'])
+    .module('app', ['ui.router', 'ngDropdowns'])
     .config(config);
 
   config.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -19,20 +19,20 @@
           user: (AuthService, $state) => {
 
             return AuthService.getUser()
-                .then((response) => {
-                  let currentUser = {
-                    userId: response.userid,
-                    userName: response.username,
-                    isAuthed: true
-                  }
-                  return currentUser
-                })
-                .catch((error) => {
-                  let currentUser = {
-                    isAuthed: false
-                  }
-                  return currentUser
-                });
+              .then((response) => {
+                let currentUser = {
+                  userId: response.userid,
+                  userName: response.username,
+                  isAuthed: true
+                }
+                return currentUser
+              })
+              .catch((error) => {
+                let currentUser = {
+                  isAuthed: false
+                }
+                return currentUser
+              });
           }
         }
       })
@@ -44,21 +44,21 @@
           user: (AuthService, $state) => {
 
             return AuthService.getUser()
-                .then((response) => {
-                  let currentUser = {
-                    userId: response.userid,
-                    userName: response.username,
-                    isAuthed: true
-                  }
-                  return currentUser
-                })
-                .catch((error) => {
-                  let currentUser = {
-                    isAuthed: false
-                  }
-                  $state.go('home')
-                  return currentUser
-                });
+              .then((response) => {
+                let currentUser = {
+                  userId: response.userid,
+                  userName: response.username,
+                  isAuthed: true
+                }
+                return currentUser
+              })
+              .catch((error) => {
+                let currentUser = {
+                  isAuthed: false
+                }
+                $state.go('home')
+                return currentUser
+              });
           }
         }
       })
@@ -70,21 +70,21 @@
           user: (AuthService, $state) => {
 
             return AuthService.getUser()
-                .then((response) => {
-                  let currentUser = {
-                    userId: response.userid,
-                    userName: response.username,
-                    isAuthed: true
-                  }
-                  return currentUser
-                })
-                .catch((error) => {
-                  let currentUser = {
-                    isAuthed: false
-                  }
-                  $state.go('home')
-                  return currentUser
-                });
+              .then((response) => {
+                let currentUser = {
+                  userId: response.userid,
+                  userName: response.username,
+                  isAuthed: true
+                }
+                return currentUser
+              })
+              .catch((error) => {
+                let currentUser = {
+                  isAuthed: false
+                }
+                $state.go('home')
+                return currentUser
+              });
           }
         }
       });

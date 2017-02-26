@@ -54,7 +54,7 @@ db.init.createUserTable([], (err, result) => {
   if (err) {
     console.error(err);
   } else {
-    console.log('User table initialized')
+    console.log('userTable initialized')
   }
 });
 
@@ -62,7 +62,15 @@ db.init.createGenotypeResultsTable([], (err, result) => {
   if (err) {
     console.error(err);
   } else {
-    console.log('Genotype Results table initialized')
+    console.log('genotypeResultsTable initialized')
+  }
+});
+
+db.init.createUserGenomesTable([], (err, result) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('userGenomeTable initialized')
   }
 });
 
@@ -124,14 +132,21 @@ app.get('/api/auth/user', userController.currentUser);
 // GENOMEJS ENDPOINTS //
 ////////////////////////
 
-app.post('/api/upload', genomeService.translateToJSON, genomeService.runBattery, genomeController.getMaxGenomeId, genomeController.storeGenomeResults, genomeService.clearUserJSON, (req, res, next) => {
+app.post('/api/upload', genomeService.translateToJSON, genomeService.runBattery, genomeController.getMaxGenomeId, genomeController.storeGenomeResults, genomeController.storeUserGenomeClassifiers, (req, res, next) => {
+
+  genomeService.clearUserJSON()
+  console.log('file size *** ' + req.body.file.length)
+
+  // lilly 15415242
+  
   return res.status(200)
     .json('Results stored in database');
+
 })
 
 app.get('/api/results/:userId', genomeController.getMaxGenomeId, genomeController.getAllGenomeResultsByUserId, (req, res, next) => {
   return res.status(200)
-    .json(req.body.allGenomeResults)
+    .send(req.body.allGenomeResults)
 });
 
 ///////////////
