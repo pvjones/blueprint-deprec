@@ -1492,11 +1492,8 @@ input[disabled] + label:hover {
   padding: 10px; }
   .summary-subheader .flex-row {
     align-items: center; }
-  .summary-subheader .summary-subheader-left select {
-    padding: 10px;
-    height: 30px;
-    margin: 0px;
-    color: rgba(0, 74, 113, 0.6); }
+  .summary-subheader .summary-subheader-left {
+    min-width: 200px; }
   .summary-subheader .summary-subheader-right {
     text-align: right; }
 
