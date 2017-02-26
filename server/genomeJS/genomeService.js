@@ -5,14 +5,12 @@ const path = require('path');
 const testBattery = require('./testBattery');
 const userJSON = path.join(__dirname, './../../userTMP/userJSON.json');
 
-// DEFINITIONS USED BY METHODS
+// DEFINITIONS USED BY EXPORTS
 
 let gqlQuery = (genoset, userDNA) => {
   const query = require(`./queries/${genoset}`)
   return matches = query(userDNA);
 };
-
-// EXPORT METHODS
 
 module.exports = {
 

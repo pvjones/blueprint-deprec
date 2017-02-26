@@ -9,7 +9,8 @@
     $scope.userId = user.userId;
 
     $scope.$watch('ddSelectSelected', (ddSelectSelected) => {
-      console.log(ddSelectSelected)
+      console.log("ALL GENOMES", $scope.userGenomeArray)
+      console.log("SELECTED GENOME", ddSelectSelected)
     })
 
     let getGenomeResults = (userId) => {

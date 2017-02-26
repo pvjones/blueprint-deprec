@@ -49,13 +49,14 @@ module.exports = {
         if (err) {
           genomeService.clearUserJSON()
           console.error(err);
-                      testResultsArray = null;
-            req.body.genomeResults = null;
+            // testResultsArray = null;
+            // req.body.genomeResults = null;
         } else {
+
           itemsProcessed++;
           if (itemsProcessed === testResultsArray.length) {
-            testResultsArray = null;
-            req.body.genomeResults = null;
+            // testResultsArray = null;
+            // req.body.genomeResults = null;
             next();
           }
         }
@@ -103,6 +104,8 @@ module.exports = {
           return res.status(404)
                     .json(err);
         } else {
+
+
           let genomeResultsObj = {
             genomeid: result[0].genomeid,
             genomename: result[0].genomename,
@@ -110,11 +113,14 @@ module.exports = {
             genomeresults: result
           }
           allGenomeResults.unshift(genomeResultsObj);
+
           itemsProcessed++;
           if (itemsProcessed === Math.max.apply(Math, userGenomeIds)) {
             req.body.allGenomeResults = allGenomeResults
             next();
           }
+
+
         }
       })
     })
