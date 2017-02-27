@@ -6,7 +6,5 @@
 
   function categoryTableController() {
 
-    
-
   };
 })();

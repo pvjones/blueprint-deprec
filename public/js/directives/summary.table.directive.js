@@ -8,7 +8,7 @@
 
     return {
       restrict: 'E',
-      templateUrl: 'templates/summary-category-table.html',
+      templateUrl: 'js/directives/templates/summary-category-table.html',
       scope: {
         data: '='
       },

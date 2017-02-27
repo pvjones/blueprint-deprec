@@ -19,7 +19,7 @@
             <li>FamilyTree</li>            
           </ul>
           <div class=input-container>
-            <input class="u-full-width input-text" type="text" placeholder="enter name (required)" id="genome-name" maxlength="10" ng-model="genomeName">
+            <input class="u-full-width input-text" type="text" placeholder="enter name (required)" id="genome-name" maxlength="30" ng-model="genomeName">
             <input type="file" name="file" id="file" class="inputfile" on-read-file="uploadGenomeTXT($fileContent, genomeName)" ng-disabled="!genomeName" />
             <label type="file" for="file">Choose a file</label>
           </div>

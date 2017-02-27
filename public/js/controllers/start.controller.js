@@ -18,8 +18,6 @@
             }, (err) => console.log(err))
         }
       }
-
-    console.log(document.getElementById(''))
     
   } // END OF CONTROLLER FUNCTION
 })(); // END OF IIFE

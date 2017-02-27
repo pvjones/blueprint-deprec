@@ -3,13 +3,15 @@
     .module('app')
     .controller('SummaryController', SummaryController)
 
-  function SummaryController($scope, $state, user, ResultsService, $filter) {
+  function SummaryController($scope, $state, user, ResultsService, ZygousityService, $filter) {
 
     $scope.userName = user.userName;
     $scope.userId = user.userId;
+    $scope.ddSelectSelected = {
+      display: 'No Genomes Uploaded'
+    }
 
     $scope.$watch('ddSelectSelected', (ddSelectSelected) => {
-      console.log("ALL GENOMES", $scope.userGenomeArray)
       console.log("SELECTED GENOME", ddSelectSelected)
     })
 
@@ -23,10 +25,19 @@
 
     getGenomeResults($scope.userId)
       .then((response) => {
+        let cleansedResponse = response.map((elem, index, array) => {
+          let cleansedGenome = elem;
+          cleansedGenome.genomeresults.map((elem, index, array) => {
+            return ZygousityService.handleZygousity(elem.resultsArray);
+          })
+          return cleansedGenome;
+        })
+        return cleansedResponse;
+      })
+      .then((response) => {
         $scope.userGenomeArray = transformData(response);
         $scope.ddSelectOptions = $scope.userGenomeArray;
         $scope.ddSelectSelected = $scope.userGenomeArray[0];
-        console.log()
       })
       .catch((err) => {
         console.log(err)

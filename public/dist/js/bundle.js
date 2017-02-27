@@ -381,8 +381,6 @@
         });
       }
     };
-
-    console.log(document.getElementById(''));
   } // END OF CONTROLLER FUNCTION
 })(); // END OF IIFE
 'use strict';
@@ -390,13 +388,15 @@
 (function () {
   angular.module('app').controller('SummaryController', SummaryController);
 
-  function SummaryController($scope, $state, user, ResultsService, $filter) {
+  function SummaryController($scope, $state, user, ResultsService, ZygousityService, $filter) {
 
     $scope.userName = user.userName;
     $scope.userId = user.userId;
+    $scope.ddSelectSelected = {
+      display: 'No Genomes Uploaded'
+    };
 
     $scope.$watch('ddSelectSelected', function (ddSelectSelected) {
-      console.log("ALL GENOMES", $scope.userGenomeArray);
       console.log("SELECTED GENOME", ddSelectSelected);
     });
 
@@ -409,10 +409,18 @@
     };
 
     getGenomeResults($scope.userId).then(function (response) {
+      var cleansedResponse = response.map(function (elem, index, array) {
+        var cleansedGenome = elem;
+        cleansedGenome.genomeresults.map(function (elem, index, array) {
+          return ZygousityService.handleZygousity(elem.resultsArray);
+        });
+        return cleansedGenome;
+      });
+      return cleansedResponse;
+    }).then(function (response) {
       $scope.userGenomeArray = transformData(response);
       $scope.ddSelectOptions = $scope.userGenomeArray;
       $scope.ddSelectSelected = $scope.userGenomeArray[0];
-      console.log();
     }).catch(function (err) {
       console.log(err);
     });
@@ -437,7 +445,7 @@
 
     return {
       restrict: 'E',
-      templateUrl: 'templates/summary-category-table.html',
+      templateUrl: 'js/directives/templates/summary-category-table.html',
       scope: {
         data: '='
       },
@@ -542,4 +550,30 @@
     };
   } //END OF SVC FUNC
 })(); //END OF IIFE
+'use strict';
+
+(function () {
+
+  angular.module('app').service('ZygousityService', ZygousityService);
+
+  function ZygousityService() {
+
+    this.handleZygousity = function (categoryArray) {
+      var cleansedArray = categoryArray;
+
+      for (var i = cleansedArray.length - 1; i >= 0; i--) {
+        if (cleansedArray[i].resultbool === false) {
+          for (var j = cleansedArray.length - 1; j >= 0; j--) {
+            if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[j].resultbool === true) {
+              cleansedArray.splice(i, 1);
+              break;
+            }
+          }
+        }
+      }
+
+      return cleansedArray;
+    };
+  };
+})();
 //# sourceMappingURL=public/bundle.js.map

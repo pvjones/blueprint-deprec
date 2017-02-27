@@ -1,10 +1,9 @@
 const gql = require('gql');
 const isMale = require('./isMale');
 
-
-module.exports = function(dna) {
+module.exports = (dna) => {
   if (!isMale(dna)) { // gs145.
-    return false;
+    return null;
   } else {
     let query = gql.and([
       gql.only('rs6625163', 'A'),
@@ -17,6 +16,6 @@ module.exports = function(dna) {
         ])
       ])
     ]);
-    return query
+    return query(dna);
   }
 };

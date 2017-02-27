@@ -4,24 +4,24 @@ module.exports = {
   tests: [
     {
       id: 1,
-      genosetName: 'isFemale',
-      genosetDesc: 'Female',
-      genosetLongDesc: '',
-      resultType: 'Traits',
-      resultName: 'Gender',
-      resultDescTrue: 'Female',
-      resultDescFalse: 'Male'
-    }, 
-    {
-      id: 2,
       genosetName: 'isMale',
-      genosetDesc: 'Male',
+      genosetDesc: 'Gender',
       genosetLongDesc: '',
       resultType: 'Traits',
       resultName: 'Gender',
       resultDescTrue: 'Male',
       resultDescFalse: 'Female'
     }, 
+    // {
+    //   id: 2,
+    //   genosetName: 'isMale',
+    //   genosetDesc: 'Male',
+    //   genosetLongDesc: '',
+    //   resultType: 'Traits',
+    //   resultName: 'Gender',
+    //   resultDescTrue: 'Male',
+    //   resultDescFalse: 'Female'
+    // }, 
     {
       id: 3,
       genosetName: 'gs228',
@@ -62,16 +62,16 @@ module.exports = {
       resultDescTrue: 'Likely Intolerant',
       resultDescFalse: 'Likely Tolerant'
     }, 
-    // {
-    //   id: 7,
-    //   genosetName: 'gs122',
-    //   genosetDesc: 'up to 7x increased likelihood of male pattern baldness',
-    //   genosetLongDesc: '',
-    //   resultType: 'Traits',
-    //   resultName: 'Male Pattern Baldness',
-    //   resultDescTrue: '7x More Likely',
-    //   resultDescFalse: 'Average'
-    // }, 
+    {
+      id: 7,
+      genosetName: 'gs122',
+      genosetDesc: 'up to 7x increased likelihood of male pattern baldness',
+      genosetLongDesc: '',
+      resultType: 'Traits',
+      resultName: 'Male Pattern Baldness',
+      resultDescTrue: '7x More Likely',
+      resultDescFalse: 'Average'
+    }, 
     {
       id: 8,
       genosetName: 'gs137',
@@ -128,20 +128,20 @@ module.exports = {
       genosetDesc: 'likely increased risk of developing Parkinsons Disease',
       genosetLongDesc: '',
       resultType: 'Health Risks',
-      resultName: 'Parkinson\'s Disease,',
+      resultName: 'Increased Risk for Parkinson\'s Disease',
       resultDescTrue: 'Slightly More Likely',
       resultDescFalse: 'Average'
     }, 
-    {
-      id: 14,
-      genosetName: 'gs248',
-      genosetDesc: 'likely decreased risk of developing Parkinsons Disease',
-      genosetLongDesc: '',
-      resultType: 'Health Risks',
-      resultName: 'Parkinson\'s Disease,',
-      resultDescTrue: 'Slightly Less Likely',
-      resultDescFalse: 'Average'
-    }, 
+    // {
+    //   id: 14,
+    //   genosetName: 'gs248',
+    //   genosetDesc: 'likely decreased risk of developing Parkinsons Disease',
+    //   genosetLongDesc: '',
+    //   resultType: 'Health Risks',
+    //   resultName: 'Parkinson\'s Disease',
+    //   resultDescTrue: 'Slightly Less Likely',
+    //   resultDescFalse: 'Average'
+    // }, 
     {
       id: 15,
       genosetName: 'gs116',

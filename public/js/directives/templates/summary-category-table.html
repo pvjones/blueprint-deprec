@@ -1,5 +1,19 @@
-<div class="row u-full-width" style="height:100px">
-
-{{4+4}}
-
+<div class="table-wrapper">
+  <div class="row u-full-width category-title">
+    {{ ctrl.data.categoryTitle }}
+  </div>
+  <div class="u-full-width category-table">
+    <div class="u-full-width table-head">
+      <div class="table-row">
+        <div class="table-cell">{{ ctrl.data.reportTitle }}</div>
+        <div class="table-cell">{{ ctrl.data.reportResultTitle }}</div>
+      </div>
+    </div>
+    <div class="u-full-width table-body">
+      <div ng-repeat="result in ctrl.data.resultsArray" class="table-row">
+        <div class="table-cell">{{ result.resultname }}</div>
+        <div class="table-cell">{{ result.resultbool ? result.resultdesctrue : result.resultdescfalse }}</div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -3,12 +3,10 @@
   <div class="row u-full-width summary-subheader">
     <div class="container row flex-row">
       <div class="four columns summary-subheader-left">
-      
-            <div dropdown-select="userGenomeArray"
-              dropdown-model="ddSelectSelected"
-              dropdown-item-label="display" >
-            </div>
-
+        <div dropdown-select="userGenomeArray"
+          dropdown-model="ddSelectSelected"
+          dropdown-item-label="display" >
+        </div>
       </div>
       <div class="four columns">
         <a ui-sref="start">Upload New Genome</a>
@@ -19,15 +17,16 @@
     </div>
   </div>
 
-  <div class="flex-column flex-stretch">
-    <div class="flex-row wrap">
-      <div ng-repeat="">
-        <summary-category-table data="ddSelectSelected">
-        </summary-category-table>
+  <div class="row u-full-width">
+    <div class="container category-container">
+      <div class="u-full-width flex-row wrap">
+        <div ng-repeat="category in ddSelectSelected.genomeresults" class="six columns">
+          <summary-category-table data="category">
+          </summary-category-table>
+        </div>
       </div>
     </div>
-  </div>
- 
+ </div>
 </section>
 
 <!-- genomeObj as genomeObj.display for genomeObj in userGenomeArray -->

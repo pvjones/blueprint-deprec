@@ -961,7 +961,8 @@ td:first-child {
 
 th:last-child,
 td:last-child {
-  padding-right: 0; }
+  padding-right: 0;
+  text-align: right; }
 
 /* Spacing
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -1486,6 +1487,9 @@ input[disabled] + label:hover {
       font-size: 2rem;
       line-height: 2.3rem; }
 
+.summary {
+  color: #004a71; }
+
 .summary-subheader {
   background-color: rgba(0, 54, 113, 0.08);
   border-bottom: 1px solid rgba(0, 74, 113, 0.2);
@@ -1496,5 +1500,28 @@ input[disabled] + label:hover {
     min-width: 200px; }
   .summary-subheader .summary-subheader-right {
     text-align: right; }
+
+div.category-container div:nth-child(odd) {
+  margin-left: 0px !important; }
+
+div.category-container {
+  padding: 50px 0px; }
+  div.category-container .category-title {
+    padding: 5px 15px;
+    font-size: 2.5rem;
+    border-bottom: 3px solid rgba(0, 74, 113, 0.3); }
+  div.category-container .table-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    border-bottom: 1px solid rgba(0, 74, 113, 0.2);
+    padding: 10px 15px; }
+  div.category-container .table-head {
+    text-transform: uppercase;
+    background-color: rgba(0, 54, 113, 0.04); }
+  div.category-container .table-body {
+    max-height: 300px;
+    overflow: auto; }
 
 /*# sourceMappingURL=public/maps/styles.css.map */
