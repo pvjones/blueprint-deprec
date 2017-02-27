@@ -104,14 +104,47 @@ module.exports = {
           return res.status(404)
                     .json(err);
         } else {
-
-
+          let rawGenomeResults = result;
+          let categoryContainer = [
+            {
+              categoryTitle: "Health Risks",
+              reportTitle: "Condition",
+              reportResultTitle: "Your Risk",
+              resultsArray: []
+            },
+            {
+              categoryTitle: "Traits",
+              reportTitle: "Report",
+              reportResultTitle: "Your Result",
+              resultsArray: []
+            },
+            {
+              categoryTitle: "Inherited Conditions",
+              reportTitle: "Report",
+              reportResultTitle: "Your Result",
+              resultsArray: []
+            },
+            {
+              categoryTitle: "Drug Response",
+              reportTitle: "Report",
+              reportResultTitle: "Your Result",
+              resultsArray: []
+            }
+          ];
+          rawGenomeResults.forEach(elem1 => {
+            let resultType = elem1.resulttype;
+            categoryContainer.forEach(elem2 => {
+              if (resultType === elem2.categoryTitle) {
+                elem2.resultsArray.push(elem1)
+              }
+            })
+          });
           let genomeResultsObj = {
-            genomeid: result[0].genomeid,
-            genomename: result[0].genomename,
-            genomedate: result[0].genomedate,
-            genomeresults: result
-          }
+            genomeid: rawGenomeResults[0].genomeid,
+            genomename: rawGenomeResults[0].genomename,
+            genomedate: rawGenomeResults[0].genomedate,
+            genomeresults: categoryContainer
+          };
           allGenomeResults.unshift(genomeResultsObj);
 
           itemsProcessed++;
@@ -119,8 +152,6 @@ module.exports = {
             req.body.allGenomeResults = allGenomeResults
             next();
           }
-
-
         }
       })
     })
