@@ -431,6 +431,39 @@ module.exports = {
       resultDescFalse: 'Average',
       resultQual: 'negative'
     },
+    {
+      id: 38,
+      genosetName: 'gs10001',
+      genosetDesc: 'Carrier of hereditary fructose intolerance',
+      genosetLongDesc: '',
+      resultType: 'Inherited Conditions',
+      resultName: 'Hereditary Fructose Intolerance',
+      resultDescTrue: 'Variant Present',
+      resultDescFalse: 'Variant Absent',
+      resultQual: 'negative'
+    },
+    {
+      id: 39,
+      genosetName: 'gs10002',
+      genosetDesc: 'Carrier of Maple Syrup Urine Disease',
+      genosetLongDesc: '',
+      resultType: 'Inherited Conditions',
+      resultName: 'Maple Syrup Urine Disease',
+      resultDescTrue: 'Variant Present',
+      resultDescFalse: 'Variant Absent',
+      resultQual: 'negative'
+    },
+    {
+      id: 40,
+      genosetName: 'gs10003',
+      genosetDesc: 'carrier of Tay-Sachs Disease',
+      genosetLongDesc: '',
+      resultType: 'Inherited Conditions',
+      resultName: 'Tay-Sachs Disease',
+      resultDescTrue: 'Variant Present',
+      resultDescFalse: 'Variant Absent',
+      resultQual: 'negative'
+    },
   ]
 };
 

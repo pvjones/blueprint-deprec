@@ -482,6 +482,55 @@
 'use strict';
 
 (function () {
+
+  angular.module('app').directive('summaryCategoryTable', summaryCategoryTable);
+
+  function summaryCategoryTable() {
+
+    return {
+      restrict: 'E',
+      templateUrl: 'js/directives/templates/summary-category-table.html',
+      scope: {
+        data: '='
+      },
+      bindToController: true,
+      controller: 'categoryTableController',
+      controllerAs: 'ctrl'
+    };
+  };
+})();
+'use strict';
+
+(function () {
+  'use strict';
+
+  angular.module('app').directive('onReadFile', onReadFile);
+
+  function onReadFile($parse) {
+
+    return {
+      restrict: 'A',
+      scope: false,
+      link: function link(scope, element, attrs) {
+        var fn = $parse(attrs.onReadFile);
+        element.on('change', function (onChangeEvent) {
+          var reader = new FileReader();
+          reader.onload = function (onLoadEvent) {
+            scope.$apply(function () {
+              fn(scope, {
+                $fileContent: onLoadEvent.target.result
+              });
+            });
+          };
+          reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
+        });
+      }
+    };
+  };
+})();
+'use strict';
+
+(function () {
   angular.module('app').service('AuthService', AuthService);
 
   function AuthService($http) {
@@ -576,55 +625,6 @@
         }
       }
       return cleansedArray;
-    };
-  };
-})();
-'use strict';
-
-(function () {
-
-  angular.module('app').directive('summaryCategoryTable', summaryCategoryTable);
-
-  function summaryCategoryTable() {
-
-    return {
-      restrict: 'E',
-      templateUrl: 'js/directives/templates/summary-category-table.html',
-      scope: {
-        data: '='
-      },
-      bindToController: true,
-      controller: 'categoryTableController',
-      controllerAs: 'ctrl'
-    };
-  };
-})();
-'use strict';
-
-(function () {
-  'use strict';
-
-  angular.module('app').directive('onReadFile', onReadFile);
-
-  function onReadFile($parse) {
-
-    return {
-      restrict: 'A',
-      scope: false,
-      link: function link(scope, element, attrs) {
-        var fn = $parse(attrs.onReadFile);
-        element.on('change', function (onChangeEvent) {
-          var reader = new FileReader();
-          reader.onload = function (onLoadEvent) {
-            scope.$apply(function () {
-              fn(scope, {
-                $fileContent: onLoadEvent.target.result
-              });
-            });
-          };
-          reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
-        });
-      }
     };
   };
 })();

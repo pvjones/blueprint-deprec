@@ -1,4 +1,4 @@
-const gql = require('gql')
+const gql = require('gql');
 
 module.exports = gql.and([
   gql.exact('rs1108580', 'AA'),
