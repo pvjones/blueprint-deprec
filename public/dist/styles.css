@@ -1487,8 +1487,15 @@ input[disabled] + label:hover {
       font-size: 2rem;
       line-height: 2.3rem; }
 
-.summary {
+/* GENERAL */
+.summary, .summary-all-results {
   color: #004a71; }
+  .summary .green, .summary-all-results .green {
+    color: green; }
+  .summary .red, .summary-all-results .red {
+    color: #ff533a; }
+  .summary .yellow, .summary-all-results .yellow {
+    color: #FFAF3A; }
 
 .summary-subheader {
   background-color: rgba(0, 54, 113, 0.08);
@@ -1505,10 +1512,11 @@ div.category-container div:nth-child(odd) {
   margin-left: 0px !important; }
 
 div.category-container {
-  padding: 50px 0px; }
+  padding-top: 30px;
+  padding-bottom: 100px; }
   div.category-container .category-title {
     padding: 5px 15px;
-    font-size: 2.5rem;
+    font-size: 3rem;
     border-bottom: 3px solid rgba(0, 74, 113, 0.3); }
   div.category-container .table-row {
     display: flex;
@@ -1519,9 +1527,41 @@ div.category-container {
     padding: 10px 15px; }
   div.category-container .table-head {
     text-transform: uppercase;
+    font-size: 2rem;
     background-color: rgba(0, 54, 113, 0.04); }
   div.category-container .table-body {
     max-height: 300px;
     overflow: auto; }
+  div.category-container .scroll-for-more {
+    padding: 15px;
+    padding: 15px;
+    font-size: 1.4rem;
+    font-family: 'ProximaNova Condensed Light';
+    text-transform: uppercase;
+    color: #0FA0CE;
+    text-align: right; }
+
+/* SPECIFIC TO MAIN SUMMARY VIEW */
+.summary .genoset-name {
+  display: none; }
+
+/* ALL RESULTS */
+.summary-all-results .table-body {
+  padding-bottom: 50px; }
+
+.summary-all-results .category-table .table-cell {
+  width: 300px; }
+
+.summary-all-results .category-table .genoset-name {
+  margin-right: auto; }
+
+.summary-all-results .category-table .result {
+  text-align: right; }
+
+.summary-all-results div.category-container .table-body {
+  max-height: none; }
+
+.summary-all-results .scroll-for-more {
+  display: none; }
 
 /*# sourceMappingURL=public/maps/styles.css.map */

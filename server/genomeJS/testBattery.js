@@ -10,7 +10,8 @@ module.exports = {
       resultType: 'Traits',
       resultName: 'Gender',
       resultDescTrue: 'Male',
-      resultDescFalse: 'Female'
+      resultDescFalse: 'Female',
+      resultQual: 'neutral'
     }, 
     // {
     //   id: 2,
@@ -20,7 +21,8 @@ module.exports = {
     //   resultType: 'Traits',
     //   resultName: 'Gender',
     //   resultDescTrue: 'Male',
-    //   resultDescFalse: 'Female'
+    //   resultDescFalse: 'Female',
+    //   resultQual: ''
     // }, 
     {
       id: 3,
@@ -30,7 +32,8 @@ module.exports = {
       resultType: 'Inherited Conditions',
       resultName: 'Sickle Cell Anemia',
       resultDescTrue: 'Variant Present',
-      resultDescFalse: 'Variant Absent'
+      resultDescFalse: 'Variant Absent',
+      resultQual: 'negative'
     }, 
     {
       id: 4,
@@ -40,7 +43,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Heart attack',
       resultDescTrue: 'Likely Lower',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'positive'
     }, 
     {
       id: 5,
@@ -50,7 +54,8 @@ module.exports = {
       resultType: 'Inherited Conditions',
       resultName: 'Type 1 Diabetes',
       resultDescTrue: 'Variant Present',
-      resultDescFalse: 'Variant Absent'
+      resultDescFalse: 'Variant Absent',
+      resultQual: 'negative'
     }, 
     {
       id: 6,
@@ -60,7 +65,8 @@ module.exports = {
       resultType: 'Traits',
       resultName: 'Lactose Intolerance',
       resultDescTrue: 'Likely Intolerant',
-      resultDescFalse: 'Likely Tolerant'
+      resultDescFalse: 'Likely Tolerant',
+      resultQual: 'negative'
     }, 
     {
       id: 7,
@@ -70,7 +76,8 @@ module.exports = {
       resultType: 'Traits',
       resultName: 'Male Pattern Baldness',
       resultDescTrue: '7x More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 8,
@@ -80,7 +87,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Thyroid Cancer',
       resultDescTrue: 'Slightly More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 9,
@@ -90,7 +98,8 @@ module.exports = {
       resultType: 'Drug Response',
       resultName: 'NSAID Sensitivity',
       resultDescTrue: 'Likely Higher Sensitivity',
-      resultDescFalse: 'Likely Average Sensitivity'
+      resultDescFalse: 'Likely Average Sensitivity',
+      resultQual: 'negative'
     }, 
     {
       id: 10,
@@ -100,7 +109,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Prostate Cancer',
       resultDescTrue: 'Higher Risk',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 11,
@@ -110,7 +120,8 @@ module.exports = {
       resultType: 'Drug Response',
       resultName: 'Alcohol Sensitivity',
       resultDescTrue: 'Likely Higher Sensitivity',
-      resultDescFalse: 'Likely Average Sensitivity'
+      resultDescFalse: 'Likely Average Sensitivity',
+      resultQual: 'negative'
     }, 
     {
       id: 12,
@@ -120,7 +131,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Anxiety Disorder',
       resultDescTrue: '1.7x More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 13,
@@ -130,7 +142,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Increased Risk for Parkinson\'s Disease',
       resultDescTrue: 'Slightly More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     // {
     //   id: 14,
@@ -140,7 +153,8 @@ module.exports = {
     //   resultType: 'Health Risks',
     //   resultName: 'Parkinson\'s Disease',
     //   resultDescTrue: 'Slightly Less Likely',
-    //   resultDescFalse: 'Average'
+    //   resultDescFalse: 'Average',
+    //   resultQual: ''
     // }, 
     {
       id: 15,
@@ -150,7 +164,8 @@ module.exports = {
       resultType: 'Traits',
       resultName: 'Bitter Taste Perception',
       resultDescTrue: 'Likely Cannot Taste',
-      resultDescFalse: 'Can Taste'
+      resultDescFalse: 'Can Taste',
+      resultQual: 'negative'
     }, 
     {
       id: 16,
@@ -160,7 +175,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Basal Cell Carcinoma',
       resultDescTrue: '2.7x More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 17,
@@ -170,7 +186,19 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Alzheimer\'s Disease',
       resultDescTrue: '11x More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
+    }, 
+    {
+      id: 17,
+      genosetName: 'gs216',
+      genosetDesc: '11x more likely to develop Alzheimers, increased risk (5-10%) of high cholesterol and 40-50% increased risk of cardiovascular disease. 40% less likely to contract Hepatitis C',
+      genosetLongDesc: '',
+      resultType: 'Health Risks',
+      resultName: 'Cholesterol',
+      resultDescTrue: 'Likely up to 10% Higher',
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 18,
@@ -180,7 +208,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Cardiovascular Disease',
       resultDescTrue: '50% More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 19,
@@ -190,7 +219,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Breast Cancer',
       resultDescTrue: '6.5x More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 20,
@@ -200,7 +230,8 @@ module.exports = {
       resultType: 'Drug Response',
       resultName: 'Caffeine',
       resultDescTrue: 'Likely Lower Sensitivity',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'positive'
     }, 
     {
       id: 21,
@@ -210,7 +241,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Late-onset Alzheimer\'s Disease',
       resultDescTrue: 'Slightly More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 22,
@@ -220,7 +252,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Autoimmune Disorder',
       resultDescTrue: 'Slightly More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 23,
@@ -230,7 +263,8 @@ module.exports = {
       resultType: 'Drug Response',
       resultName: 'Warfarin',
       resultDescTrue: 'Likely Higher Sensitivity',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 24,
@@ -240,7 +274,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'ALS',
       resultDescTrue: '1.3x More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 25,
@@ -250,7 +285,8 @@ module.exports = {
       resultType: 'Drug Response',
       resultName: 'Cocaine-induced Paranoia',
       resultDescTrue: 'More Likely to Develop',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 26,
@@ -260,7 +296,8 @@ module.exports = {
       resultType: 'Traits',
       resultName: 'Glucose Appetite Response',
       resultDescTrue: 'Likely Less Sensitive',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 27,
@@ -270,7 +307,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Colonic Crohn\'s Disease',
       resultDescTrue: '2.4x More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 28,
@@ -280,7 +318,8 @@ module.exports = {
       resultType: 'Traits',
       resultName: 'Blood Type',
       resultDescTrue: 'Likely Type O',
-      resultDescFalse: 'Likely Type A or B'
+      resultDescFalse: 'Likely Type A or B',
+      resultQual: 'neutral'
     }, 
     {
       id: 29,
@@ -290,7 +329,8 @@ module.exports = {
       resultType: 'Traits',
       resultName: 'Endurance Muscle Performance',
       resultDescTrue: 'Endurance Biased',
-      resultDescFalse: 'Likely Average'
+      resultDescFalse: 'Likely Average',
+      resultQual: 'positive'
     },   
     {
       id: 30,
@@ -300,7 +340,8 @@ module.exports = {
       resultType: 'Traits',
       resultName: 'Sprint Muscle Performance',
       resultDescTrue: 'Sprint Biased',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'positive'
     }, 
     {
       id: 31,
@@ -310,7 +351,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Type 2 Diabetes',
       resultDescTrue: '1.6x More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }, 
     {
       id: 32,
@@ -320,7 +362,8 @@ module.exports = {
       resultType: 'Health Risks',
       resultName: 'Type 2 Diabetes',
       resultDescTrue: '1.3x More Likely',
-      resultDescFalse: 'Average'
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
     }
   ]
 };

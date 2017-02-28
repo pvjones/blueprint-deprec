@@ -41,7 +41,8 @@ module.exports = {
         resultName: battery[i].resultName,
         resultDescTrue: battery[i].resultDescTrue,
         resultDescFalse: battery[i].resultDescFalse,
-        resultBool: gqlQuery(genoset, userDNA)
+        resultBool: gqlQuery(genoset, userDNA),
+        resultQual: battery[i].resultQual
       };
       resultsArray.push(testResult);
     }

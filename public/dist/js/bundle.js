@@ -78,6 +78,29 @@
           });
         }
       }
+    }).state('all-results', {
+      url: '/summary/all-results',
+      controller: 'SummaryController',
+      templateUrl: './../views/all-results.html',
+      resolve: {
+        user: function user(AuthService, $state) {
+
+          return AuthService.getUser().then(function (response) {
+            var currentUser = {
+              userId: response.userid,
+              userName: response.username,
+              isAuthed: true
+            };
+            return currentUser;
+          }).catch(function (error) {
+            var currentUser = {
+              isAuthed: false
+            };
+            $state.go('home');
+            return currentUser;
+          });
+        }
+      }
     });
 
     $urlRouterProvider.otherwise('/home');
@@ -294,7 +317,28 @@
 
   angular.module('app').controller('categoryTableController', categoryTableController);
 
-  function categoryTableController() {};
+  function categoryTableController() {
+
+    this.colorResult = function (resultObj) {
+      var color = "";
+
+      if (resultObj.resulttype == "Inherited Conditions" && resultObj.resultbool == false) {
+        color = "green";
+      } else if (resultObj.resultqual == "positive" && resultObj.resultbool == true) {
+        color = "green";
+      } else if (resultObj.resultqual == "positive" && resultObj.resultbool == false) {
+        color = "yellow";
+      } else if (resultObj.resultqual == "negative" && resultObj.resultbool == false) {
+        color = "yellow";
+      } else if (resultObj.resultqual == "negative" && resultObj.resultbool == true) {
+        color = "red";
+      } else {
+        color = "black";
+      }
+
+      return color;
+    };
+  };
 })();
 'use strict';
 

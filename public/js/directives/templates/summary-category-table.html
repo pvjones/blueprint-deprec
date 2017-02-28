@@ -5,15 +5,20 @@
   <div class="u-full-width category-table">
     <div class="u-full-width table-head">
       <div class="table-row">
-        <div class="table-cell">{{ ctrl.data.reportTitle }}</div>
-        <div class="table-cell">{{ ctrl.data.reportResultTitle }}</div>
+        <div class="table-cell result-name">{{ ctrl.data.reportTitle }}</div>
+        <div class="table-cell genoset-name">Genoset</div>
+        <div class="table-cell result">{{ ctrl.data.reportResultTitle }}</div>
       </div>
     </div>
     <div class="u-full-width table-body">
       <div ng-repeat="result in ctrl.data.resultsArray" class="table-row">
-        <div class="table-cell">{{ result.resultname }}</div>
-        <div class="table-cell">{{ result.resultbool ? result.resultdesctrue : result.resultdescfalse }}</div>
+        <div class="table-cell result-name">{{ result.resultname }}</div>
+        <div class="table-cell genoset-name">{{ result.genosetname }}</div>
+        <div class="table-cell result" ng-class="{'red':ctrl.colorResult(result)==='red', 'yellow':ctrl.colorResult(result)==='yellow', 'green':ctrl.colorResult(result)==='green'}">{{ result.resultbool ? result.resultdesctrue : result.resultdescfalse }}</div>
       </div>
     </div>
   </div>
+</div>
+<div class="scroll-for-more">
+  <span>Scroll for more <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></span>
 </div>

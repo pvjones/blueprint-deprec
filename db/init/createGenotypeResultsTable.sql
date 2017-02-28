@@ -9,5 +9,6 @@ CREATE TABLE IF NOT EXISTS genotypeResults(
   resultname VARCHAR(50),
   resultdesctrue VARCHAR(50),
   resultdescfalse VARCHAR(50),
-  resultbool BOOLEAN
+  resultbool BOOLEAN,
+  resultqual VARCHAR(50)
 );

@@ -1,4 +1,4 @@
-<section class="summary u-full-width">
+<section class="summary-all-results u-full-width">
 
   <div class="row u-full-width summary-subheader">
     <div class="container row flex-row">
@@ -12,7 +12,7 @@
         <a ui-sref="start">Upload New Genome</a>
       </div>
       <div class="four columns summary-subheader-right">
-        <span><a ui-sref="all-results">View all results</a></span>
+        <span><a ui-sref="summary">Back to main summary</a></span>
       </div>
     </div>
   </div>
@@ -20,7 +20,7 @@
   <div class="row u-full-width">
     <div class="container category-container">
       <div class="u-full-width flex-row wrap">
-        <div ng-repeat="category in ddSelectSelected.genomeresults" class="six columns">
+        <div ng-repeat="category in ddSelectSelected.genomeresults" class="twelve columns">
           <summary-category-table data="category">
           </summary-category-table>
         </div>
@@ -28,4 +28,3 @@
     </div>
  </div>
 </section>
-

@@ -1,5 +1,19 @@
-.summary {
+/* GENERAL */
+
+.summary, .summary-all-results {
   color: #004a71;
+
+    .green {
+      color: green;
+    }
+
+    .red {
+      color: #ff533a;
+    }
+
+    .yellow {
+      color: #FFAF3A;
+    }
 }
 
 .summary-subheader {
@@ -13,7 +27,6 @@
 
   .summary-subheader-left {
       min-width: 200px;
-    
   }
 
   .summary-subheader-right {
@@ -27,13 +40,13 @@ div.category-container div:nth-child(odd) {
 
 div.category-container {
 
-  padding: 50px 0px;
+  padding-top: 30px;
+  padding-bottom: 100px;
 
   .category-title {
     padding: 5px 15px;
-    font-size: 2.5rem;
+    font-size: 3rem;
     border-bottom: 3px solid rgba(0, 74, 113, 0.3);
-
   }
 
   .table-row {
@@ -48,13 +61,60 @@ div.category-container {
 
   .table-head {
     text-transform: uppercase;
-    background-color: rgba(0, 54, 113, 0.04);;
-
+    font-size: 2rem;
+    background-color: rgba(0, 54, 113, 0.04);
   }
 
   .table-body {
     max-height: 300px;
     overflow: auto;
+  }
+
+  .scroll-for-more {
+    padding: 15px;
+    padding: 15px;
+    font-size: 1.4rem;
+    font-family: 'ProximaNova Condensed Light';
+    text-transform: uppercase;
+    color: #0FA0CE;
+    text-align: right;
+  }
+}
+
+/* SPECIFIC TO MAIN SUMMARY VIEW */
+
+.summary {
+  .genoset-name {
+    display: none;
+  }
+}
+
+/* ALL RESULTS */
+
+.summary-all-results {
+
+  .table-body {
+    padding-bottom: 50px;
+  }
+
+  .category-table {
+    .table-cell {
+      width: 300px;
+    }
+    .genoset-name {
+      margin-right: auto;
+    }
+    .result {
+      text-align: right;
+    }
+  }
+
+  div.category-container .table-body {
+    max-height: none;
+  }
+
+  .scroll-for-more {
+    display: none;
   }
 
 }

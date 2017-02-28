@@ -44,7 +44,8 @@ module.exports = {
         elem.resultName,
         elem.resultDescTrue,
         elem.resultDescFalse,
-        elem.resultBool
+        elem.resultBool,
+        elem.resultQual
       ], (err, result) => {
         if (err) {
           genomeService.clearUserJSON()
