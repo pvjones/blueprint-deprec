@@ -1147,21 +1147,21 @@ div.show-button {
 
 .sticky {
   position: fixed;
+  top: 0px;
+  left: 0px;
   z-index: -2;
   opacity: 0;
-  transition: opacity 0.3s linear; }
+  transition: opacity 0.3s linear;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(0, 74, 113, 0.2); }
+  .sticky div.menu-item {
+    padding: 10px; }
 
 .fixed {
   position: fixed;
-  width: 100vw;
-  top: 0px;
-  left: 0px;
   z-index: 2;
-  opacity: 1;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-bottom: 1px solid rgba(0, 74, 113, 0.2); }
-  .fixed div.menu-item {
-    padding: 10px; }
+  opacity: 1; }
 
 /* FOOTER STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
