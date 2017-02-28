@@ -386,7 +386,51 @@ module.exports = {
       resultDescTrue: 'Carrier of Gene',
       resultDescFalse: 'Unlikely',
       resultQual: 'neutral'
-    }
+    },
+    {
+      id: 34,
+      genosetName: 'rs1805007TT',
+      genosetDesc: 'Increased response to anesthetics, 13-20x higher likelihood of red hair, higher risk of melanoma',
+      genosetLongDesc: '',
+      resultType: 'Drug Response',
+      resultName: 'Anesthetic Sensitivity',
+      resultDescTrue: 'Likely High Sensitivity',
+      resultDescFalse: 'Likely Average Sensitivity',
+      resultQual: 'neutral'
+    },
+    {
+      id: 35,
+      genosetName: 'rs1805007CT',
+      genosetDesc: 'Increased response to anesthetics, 13-20x higher likelihood of red hair, higher risk of melanoma',
+      genosetLongDesc: '',
+      resultType: 'Drug Response',
+      resultName: 'Anesthetic Sensitivity',
+      resultDescTrue: 'Somewhat Higher Sensitivity',
+      resultDescFalse: 'Likely Average Sensitivity',
+      resultQual: 'neutral'
+    },
+    {
+      id: 36,
+      genosetName: 'rs1805007TT',
+      genosetDesc: 'Increased response to anesthetics, 13-20x higher likelihood of red hair, higher risk of melanoma',
+      genosetLongDesc: '',
+      resultType: 'Health Risks',
+      resultName: 'Melanoma',
+      resultDescTrue: 'Possibly More Likely',
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
+    },
+    {
+      id: 37,
+      genosetName: 'rs1805007CT',
+      genosetDesc: 'Increased response to anesthetics, 13-20x higher likelihood of red hair, higher risk of melanoma',
+      genosetLongDesc: '',
+      resultType: 'Health Risks',
+      resultName: 'Melanoma',
+      resultDescTrue: 'Possibly More Likely',
+      resultDescFalse: 'Average',
+      resultQual: 'negative'
+    },
   ]
 };
 
