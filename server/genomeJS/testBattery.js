@@ -364,6 +364,28 @@ module.exports = {
       resultDescTrue: '1.3x More Likely',
       resultDescFalse: 'Average',
       resultQual: 'negative'
+    },
+    {
+      id: 33,
+      genosetName: 'rs1805007TT',
+      genosetDesc: 'Increased response to anesthetics, 13-20x higher likelihood of red hair, higher risk of melanoma',
+      genosetLongDesc: '',
+      resultType: 'Traits',
+      resultName: 'Red Hair',
+      resultDescTrue: 'High Likelihood',
+      resultDescFalse: 'Unlikely',
+      resultQual: 'neutral'
+    },
+    {
+      id: 33,
+      genosetName: 'rs1805007CT',
+      genosetDesc: 'Increased response to anesthetics, 13-20x higher likelihood of red hair, higher risk of melanoma',
+      genosetLongDesc: '',
+      resultType: 'Traits',
+      resultName: 'Red Hair',
+      resultDescTrue: 'Carrier of Gene',
+      resultDescFalse: 'Unlikely',
+      resultQual: 'neutral'
     }
   ]
 };

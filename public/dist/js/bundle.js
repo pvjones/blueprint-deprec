@@ -108,315 +108,6 @@
 })();
 'use strict';
 
-(function () {
-
-  angular.module('app').controller('categoryTableController', categoryTableController);
-
-  function categoryTableController() {
-
-    this.colorResult = function (resultObj) {
-      var color = "";
-
-      if (resultObj.resulttype == "Inherited Conditions" && resultObj.resultbool == false) {
-        color = "green";
-      } else if (resultObj.resultqual == "positive" && resultObj.resultbool == true) {
-        color = "green";
-      } else if (resultObj.resultqual == "positive" && resultObj.resultbool == false) {
-        color = "yellow";
-      } else if (resultObj.resultqual == "negative" && resultObj.resultbool == false) {
-        color = "yellow";
-      } else if (resultObj.resultqual == "negative" && resultObj.resultbool == true) {
-        color = "red";
-      } else {
-        color = "black";
-      }
-
-      return color;
-    };
-  };
-})();
-'use strict';
-
-(function () {
-  angular.module('app').controller('HomeController', HomeController);
-
-  function HomeController($scope, user) {
-
-    // Auth
-    console.log("user object returned", user);
-    $scope.userName = user.userName;
-    $scope.isAuthed = user.isAuthed;
-
-    // Parallax scroll effects
-    $(window).on('scroll', function () {
-      var winScroll = $(this).scrollTop();
-
-      $('.helix').css({
-        'transform': 'translateY(-' + winScroll / 15 + '%)'
-      });
-      $('.helix-marks').css({
-        'transform': 'translate(-' + winScroll / 7 + '%, -' + winScroll / 15 + '%)'
-      });
-      $('.circles-side').css({
-        'transform': 'translateY(-' + winScroll / 15 + '%)'
-      });
-      $('.guanine').css({
-        'transform': 'translateX(-' + winScroll / 15 + '%)'
-      });
-      $('.cytosine').css({
-        'transform': 'translateX(+' + winScroll / 12 + '%)'
-      });
-    });
-  } // END OF CTRL FUNC
-})(); // END OF IIFE
-'use strict';
-
-(function () {
-
-  angular.module('app').controller('MenuController', MenuController);
-
-  function MenuController($scope, $state, AuthService) {
-
-    // Set initial display variables
-    $scope.loggedIn = $scope.loggedIn === true ? true : false;
-
-    function getUser() {
-
-      AuthService.getUser().then(function (res) {
-        $scope.userName = res.username;
-        $scope.isAuthed = true;
-      }).catch(function (err) {
-        $scope.isAuthed = false;
-      });
-    }
-
-    getUser();
-
-    $(window).scroll(function () {
-      var sticky = $('.sticky'),
-          scroll = $(window).scrollTop();
-      if (scroll >= 100) sticky.addClass('fixed');else sticky.removeClass('fixed');
-    });
-  } // END OF CTRL FUNC
-})(); // END OF IIFE
-'use strict';
-
-(function () {
-
-  angular.module('app').controller('StartController', StartController);
-
-  function StartController($scope, $state, UploadService, user) {
-
-    $scope.username = user.userName;
-
-    $scope.uploadGenomeTXT = function (TXT, genomeName) {
-      if (TXT && $scope.genomeName) {
-        $scope.showUpload = true;
-        UploadService.sendGenomeTXT(TXT, genomeName).then(function (response) {
-          console.log(response);
-          $state.go('summary');
-        }, function (err) {
-          return console.log(err);
-        });
-      }
-    };
-  } // END OF CONTROLLER FUNCTION
-})(); // END OF IIFE
-'use strict';
-
-(function () {
-  angular.module('app').controller('SummaryController', SummaryController);
-
-  function SummaryController($scope, $state, user, ResultsService, ZygousityService, $filter) {
-
-    $scope.userName = user.userName;
-    $scope.userId = user.userId;
-    $scope.ddSelectSelected = {
-      display: 'No Genomes Uploaded'
-    };
-
-    $scope.$watch('ddSelectSelected', function (ddSelectSelected) {
-      console.log("SELECTED GENOME", ddSelectSelected);
-    });
-
-    var getGenomeResults = function getGenomeResults(userId) {
-      return ResultsService.getResultsByUserId(userId).then(function (response) {
-        return response;
-      }).catch(function (err) {
-        return console.log(err);
-      });
-    };
-
-    getGenomeResults($scope.userId).then(function (response) {
-      var cleansedResponse = response.map(function (elem, index, array) {
-        var cleansedGenome = elem;
-        cleansedGenome.genomeresults.map(function (elem, index, array) {
-          return ZygousityService.handleZygousity(elem.resultsArray);
-        });
-        return cleansedGenome;
-      });
-      return cleansedResponse;
-    }).then(function (response) {
-      $scope.userGenomeArray = transformData(response);
-      $scope.ddSelectOptions = $scope.userGenomeArray;
-      $scope.ddSelectSelected = $scope.userGenomeArray[0];
-    }).catch(function (err) {
-      console.log(err);
-    });
-
-    function transformData(response) {
-      if (response) {
-        return response.map(function (elem) {
-          elem.display = 'GENOME:\xa0\xa0\xa0' + elem.genomename + "\xa0\xa0\xa0" + $filter('date')(new Date(elem.genomedate), 'short');
-          return elem;
-        });
-      }
-    }
-  }; // END OF CTRL FUNC
-})(); // END OF IIFE
-'use strict';
-
-(function () {
-
-  angular.module('app').directive('summaryCategoryTable', summaryCategoryTable);
-
-  function summaryCategoryTable() {
-
-    return {
-      restrict: 'E',
-      templateUrl: 'js/directives/templates/summary-category-table.html',
-      scope: {
-        data: '='
-      },
-      bindToController: true,
-      controller: 'categoryTableController',
-      controllerAs: 'ctrl'
-    };
-  };
-})();
-'use strict';
-
-(function () {
-  'use strict';
-
-  angular.module('app').directive('onReadFile', onReadFile);
-
-  function onReadFile($parse) {
-
-    return {
-      restrict: 'A',
-      scope: false,
-      link: function link(scope, element, attrs) {
-        var fn = $parse(attrs.onReadFile);
-        element.on('change', function (onChangeEvent) {
-          var reader = new FileReader();
-          reader.onload = function (onLoadEvent) {
-            scope.$apply(function () {
-              fn(scope, {
-                $fileContent: onLoadEvent.target.result
-              });
-            });
-          };
-          reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
-        });
-      }
-    };
-  };
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('AuthService', AuthService);
-
-  function AuthService($http) {
-
-    this.getUser = function () {
-      return $http({
-        method: 'GET',
-        url: '/api/auth/user'
-      }).then(function (response) {
-        return response.data[0];
-      }).catch(function (err) {
-        throw new Error(err);
-      });
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('ResultsService', ResultsService);
-
-  function ResultsService($http) {
-
-    this.getResultsByUserId = function (userId) {
-      //console.log("service userId", userId)
-      return $http({
-        method: 'GET',
-        url: '/api/results/' + userId
-      }).then(function (response) {
-        //console.log('valid response from $http', response)
-        return response.data;
-      }).catch(function (err) {
-        console.log(err);
-        throw new Error(err);
-      });
-    };
-  }; // END OF SVC FUNC
-})(); // END OF IIFE
-'use strict';
-
-(function () {
-  angular.module('app').service('UploadService', UploadService);
-
-  function UploadService($http, $q) {
-
-    this.sendGenomeTXT = function (uploadTXT, genomeName) {
-      var deferred = $q.defer();
-      $http({
-        method: 'POST',
-        url: '/api/upload',
-        data: {
-          file: uploadTXT,
-          genomeName: genomeName
-        }
-      }).then(function (res) {
-        deferred.resolve(res.data);
-      }).catch(function (res) {
-        deferred.reject(res);
-      });
-      return deferred.promise;
-    };
-  } //END OF SVC FUNC
-})(); //END OF IIFE
-'use strict';
-
-(function () {
-
-  angular.module('app').service('ZygousityService', ZygousityService);
-
-  function ZygousityService() {
-
-    this.handleZygousity = function (categoryArray) {
-      var cleansedArray = categoryArray;
-
-      for (var i = cleansedArray.length - 1; i >= 0; i--) {
-        if (cleansedArray[i].resultbool === false) {
-          for (var j = cleansedArray.length - 1; j >= 0; j--) {
-            if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[j].resultbool === true) {
-              cleansedArray.splice(i, 1);
-              break;
-            }
-          }
-        }
-      }
-
-      return cleansedArray;
-    };
-  };
-})();
-'use strict';
-
 /**
  * @license MIT http://jseppi.mit-license.org/license.html
  */
@@ -620,4 +311,321 @@
     return service;
   }]);
 })(window, window.angular);
+'use strict';
+
+(function () {
+
+  angular.module('app').controller('categoryTableController', categoryTableController);
+
+  function categoryTableController() {
+
+    this.colorResult = function (resultObj) {
+      var color = "";
+
+      if (resultObj.resulttype == "Inherited Conditions" && resultObj.resultbool == false) {
+        color = "green";
+      } else if (resultObj.resultqual == "positive" && resultObj.resultbool == true) {
+        color = "green";
+      } else if (resultObj.resultqual == "positive" && resultObj.resultbool == false) {
+        color = "yellow";
+      } else if (resultObj.resultqual == "negative" && resultObj.resultbool == false) {
+        color = "yellow";
+      } else if (resultObj.resultqual == "negative" && resultObj.resultbool == true) {
+        color = "red";
+      } else {
+        color = "black";
+      }
+
+      return color;
+    };
+  };
+})();
+'use strict';
+
+(function () {
+  angular.module('app').controller('HomeController', HomeController);
+
+  function HomeController($scope, user) {
+
+    // Auth
+    console.log("user object returned", user);
+    $scope.userName = user.userName;
+    $scope.isAuthed = user.isAuthed;
+
+    // Parallax scroll effects
+    $(window).on('scroll', function () {
+      var winScroll = $(this).scrollTop();
+
+      $('.helix').css({
+        'transform': 'translateY(-' + winScroll / 15 + '%)'
+      });
+      $('.helix-marks').css({
+        'transform': 'translate(-' + winScroll / 7 + '%, -' + winScroll / 15 + '%)'
+      });
+      $('.circles-side').css({
+        'transform': 'translateY(-' + winScroll / 15 + '%)'
+      });
+      $('.guanine').css({
+        'transform': 'translateX(-' + winScroll / 15 + '%)'
+      });
+      $('.cytosine').css({
+        'transform': 'translateX(+' + winScroll / 12 + '%)'
+      });
+    });
+  } // END OF CTRL FUNC
+})(); // END OF IIFE
+'use strict';
+
+(function () {
+
+  angular.module('app').controller('MenuController', MenuController);
+
+  function MenuController($scope, $state, AuthService) {
+
+    // Set initial display variables
+    $scope.loggedIn = $scope.loggedIn === true ? true : false;
+
+    function getUser() {
+
+      AuthService.getUser().then(function (res) {
+        $scope.userName = res.username;
+        $scope.isAuthed = true;
+      }).catch(function (err) {
+        $scope.isAuthed = false;
+      });
+    }
+
+    getUser();
+
+    $(window).scroll(function () {
+      var sticky = $('.sticky'),
+          scroll = $(window).scrollTop();
+      if (scroll >= 100) sticky.addClass('fixed');else sticky.removeClass('fixed');
+    });
+  } // END OF CTRL FUNC
+})(); // END OF IIFE
+'use strict';
+
+(function () {
+
+  angular.module('app').controller('StartController', StartController);
+
+  function StartController($scope, $state, UploadService, user) {
+
+    $scope.username = user.userName;
+
+    $scope.uploadGenomeTXT = function (TXT, genomeName) {
+      if (TXT && $scope.genomeName) {
+        $scope.showUpload = true;
+        UploadService.sendGenomeTXT(TXT, genomeName).then(function (response) {
+          console.log(response);
+          $state.go('summary');
+        }, function (err) {
+          return console.log(err);
+        });
+      }
+    };
+  } // END OF CONTROLLER FUNCTION
+})(); // END OF IIFE
+'use strict';
+
+(function () {
+  angular.module('app').controller('SummaryController', SummaryController);
+
+  function SummaryController($scope, $state, user, ResultsService, ZygousityService, $filter) {
+
+    $scope.userName = user.userName;
+    $scope.userId = user.userId;
+    $scope.ddSelectSelected = {
+      display: 'No Genomes Uploaded'
+    };
+
+    $scope.$watch('ddSelectSelected', function (ddSelectSelected) {
+      console.log("SELECTED GENOME", ddSelectSelected);
+    });
+
+    var getGenomeResults = function getGenomeResults(userId) {
+      return ResultsService.getResultsByUserId(userId).then(function (response) {
+        return response;
+      }).catch(function (err) {
+        return console.log(err);
+      });
+    };
+
+    getGenomeResults($scope.userId).then(function (response) {
+      var cleansedResponse = response.map(function (elem, index, array) {
+        var cleansedGenome = elem;
+        cleansedGenome.genomeresults.map(function (elem, index, array) {
+          return ZygousityService.handleZygousity(elem.resultsArray);
+        });
+        return cleansedGenome;
+      });
+      return cleansedResponse;
+    }).then(function (response) {
+      $scope.userGenomeArray = transformData(response);
+      $scope.ddSelectOptions = $scope.userGenomeArray;
+      $scope.ddSelectSelected = $scope.userGenomeArray[0];
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+    function transformData(response) {
+      if (response) {
+        return response.map(function (elem) {
+          elem.display = 'GENOME:\xa0\xa0\xa0' + elem.genomename + "\xa0\xa0\xa0" + $filter('date')(new Date(elem.genomedate), 'short');
+          return elem;
+        });
+      }
+    }
+  }; // END OF CTRL FUNC
+})(); // END OF IIFE
+'use strict';
+
+(function () {
+  angular.module('app').service('AuthService', AuthService);
+
+  function AuthService($http) {
+
+    this.getUser = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/auth/user'
+      }).then(function (response) {
+        return response.data[0];
+      }).catch(function (err) {
+        throw new Error(err);
+      });
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('app').service('ResultsService', ResultsService);
+
+  function ResultsService($http) {
+
+    this.getResultsByUserId = function (userId) {
+      //console.log("service userId", userId)
+      return $http({
+        method: 'GET',
+        url: '/api/results/' + userId
+      }).then(function (response) {
+        //console.log('valid response from $http', response)
+        return response.data;
+      }).catch(function (err) {
+        console.log(err);
+        throw new Error(err);
+      });
+    };
+  }; // END OF SVC FUNC
+})(); // END OF IIFE
+'use strict';
+
+(function () {
+  angular.module('app').service('UploadService', UploadService);
+
+  function UploadService($http, $q) {
+
+    this.sendGenomeTXT = function (uploadTXT, genomeName) {
+      var deferred = $q.defer();
+      $http({
+        method: 'POST',
+        url: '/api/upload',
+        data: {
+          file: uploadTXT,
+          genomeName: genomeName
+        }
+      }).then(function (res) {
+        deferred.resolve(res.data);
+      }).catch(function (res) {
+        deferred.reject(res);
+      });
+      return deferred.promise;
+    };
+  } //END OF SVC FUNC
+})(); //END OF IIFE
+'use strict';
+
+(function () {
+
+  angular.module('app').service('ZygousityService', ZygousityService);
+
+  function ZygousityService() {
+
+    this.handleZygousity = function (categoryArray) {
+      var cleansedArray = categoryArray;
+
+      for (var i = cleansedArray.length - 1; i >= 0; i--) {
+
+        if (cleansedArray[i]) {
+
+          for (var j = i - 1; j >= 0; j--) {
+
+            if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[j].resultbool === true) {
+              cleansedArray.splice(i, 1);
+              break;
+            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === true) {
+              cleansedArray.splice(j, 1);
+              break;
+            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === false && cleansedArray[j].resultbool === false) {
+              cleansedArray.splice(j, 1);
+              break;
+            }
+          }
+        }
+      }
+      return cleansedArray;
+    };
+  };
+})();
+'use strict';
+
+(function () {
+
+  angular.module('app').directive('summaryCategoryTable', summaryCategoryTable);
+
+  function summaryCategoryTable() {
+
+    return {
+      restrict: 'E',
+      templateUrl: 'js/directives/templates/summary-category-table.html',
+      scope: {
+        data: '='
+      },
+      bindToController: true,
+      controller: 'categoryTableController',
+      controllerAs: 'ctrl'
+    };
+  };
+})();
+'use strict';
+
+(function () {
+  'use strict';
+
+  angular.module('app').directive('onReadFile', onReadFile);
+
+  function onReadFile($parse) {
+
+    return {
+      restrict: 'A',
+      scope: false,
+      link: function link(scope, element, attrs) {
+        var fn = $parse(attrs.onReadFile);
+        element.on('change', function (onChangeEvent) {
+          var reader = new FileReader();
+          reader.onload = function (onLoadEvent) {
+            scope.$apply(function () {
+              fn(scope, {
+                $fileContent: onLoadEvent.target.result
+              });
+            });
+          };
+          reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
+        });
+      }
+    };
+  };
+})();
 //# sourceMappingURL=public/bundle.js.map
