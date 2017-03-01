@@ -36,7 +36,7 @@ module.exports = {
       let testResult = {
         genosetName: genoset,
         genosetDesc: battery[i].genosetDesc,
-        genosetLongDesc: battery[i].genosetLongDesc,
+        descriptionId: battery[i].descriptionId,
         resultType: battery[i].resultType,
         resultName: battery[i].resultName,
         resultDescTrue: battery[i].resultDescTrue,

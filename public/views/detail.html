@@ -17,7 +17,7 @@
         {{detail.genosetLongDesc}}
       </div>
       <div class="five columns detail-image">
-        <img ng-src="/images/detail-images/{{detail.genosetName}}.jpg" alt="" />
+        <img ng-src="/images/detail-images/{{detail.id}}.jpg" alt="" />
       </div>
     </div>
   </div>
@@ -25,7 +25,10 @@
   <div class="row">
     <div class="container">
       <div class="seven columns">
-        <p>POSITION GRAPHIC</p>
+
+        <genome-chart data="data"  class="genome-chart">
+        </genome-chart>
+
       </div>
       <div class="five columns snp-table">
         <div class="u-full-width table-head">

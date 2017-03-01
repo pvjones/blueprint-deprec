@@ -1215,7 +1215,7 @@ div.show-button {
   opacity: 0;
   transition: opacity 0.3s linear;
   width: 100vw;
-  background-color: rgba(238, 246, 249, 0.85);
+  background-color: rgba(240, 243, 246, 0.9);
   border-bottom: 1px solid rgba(0, 74, 113, 0.2); }
   .sticky div.menu-item {
     padding: 10px; }

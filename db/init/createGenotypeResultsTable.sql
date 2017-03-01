@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS genotypeResults(
   genomeid INTEGER NOT NULL,
   genosetname VARCHAR(50),
   genosetdesc TEXT,
-  genosetlongdesc TEXT,
+  descriptionid TEXT,
   resulttype VARCHAR(50),
   resultname VARCHAR(50),
   resultdesctrue VARCHAR(50),

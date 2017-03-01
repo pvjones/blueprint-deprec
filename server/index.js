@@ -151,11 +151,12 @@ app.get('/api/results/:userId', genomeController.getMaxGenomeId, genomeControlle
     .send(req.body.allGenomeResults)
 });
 
-
+/* DETAIL VIEW ENDPOINTS */
+///////////////////////////
 
 app.post('/api/insertdetail', genomeController.insertDetail);
 
-app.get('/api/getdetail/:genosetName', genomeController.getDetail);
+app.get('/api/getdetail/:descriptionId', genomeController.getDetail);
 
 /* LISTEN */
 ////////////

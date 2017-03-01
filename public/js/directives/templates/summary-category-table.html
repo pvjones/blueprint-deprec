@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="u-full-width table-body">
-      <div ng-repeat="result in ctrl.data.resultsArray" class="table-row" ui-sref="detail({genosetName:result.genosetname})">
+      <div ng-repeat="result in ctrl.data.resultsArray" class="table-row" ui-sref="detail({descriptionId:result.descriptionid})">
           <div class="table-cell result-name">{{ result.resultname }}</div>
           <div class="table-cell genoset-name">{{ result.genosetname }}</div>
           <div class="table-cell result" ng-class="{'red':ctrl.colorResult(result)==='red', 'yellow':ctrl.colorResult(result)==='yellow', 'green':ctrl.colorResult(result)==='green'}">{{ result.resultbool ? result.resultdesctrue : result.resultdescfalse }}</div>

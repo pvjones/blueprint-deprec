@@ -6,10 +6,10 @@
 
   function DetailService($http) {
 
-    this.getDetail = (genosetName) => {
+    this.getDetail = (descriptionId) => {
       return $http({
         method: 'GET',
-        url: `/api/getdetail/${genosetName}`
+        url: `/api/getdetail/${descriptionId}`
       })
       .then((response) => {
         return(response.data[0].detailobject)

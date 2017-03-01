@@ -5,10 +5,10 @@
 
   function detailController($scope, $stateParams, DetailService) {
 
-    getDetail($stateParams.genosetName);
+    getDetail($stateParams.descriptionId);
 
-    function getDetail(genosetName) {
-      DetailService.getDetail(genosetName)
+    function getDetail(descriptionId) {
+      DetailService.getDetail(descriptionId)
         .then((response) => {
           $scope.detail = response
           console.log('detailController', $scope.detail);

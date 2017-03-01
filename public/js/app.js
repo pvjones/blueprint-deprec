@@ -115,7 +115,7 @@
         }
       })
       .state('detail', {
-        url: '/detail/:genosetName',
+        url: '/detail/:descriptionId',
         controller: 'detailController',
         templateUrl: './../views/detail.html',
         resolve: {

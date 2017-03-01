@@ -31,7 +31,7 @@ module.exports = {
     let newGenomeId = req.body.newGenomeId;
 
     let itemsProcessed = 0;
-      // Then store gql results in genotypeResultsTable
+    // Then store gql results in genotypeResultsTable
     testResultsArray.forEach((elem, index, array) => {
 
       db.genotypes.insertGenotype([
@@ -39,7 +39,7 @@ module.exports = {
         newGenomeId,
         elem.genosetName,
         elem.genosetDesc,
-        elem.genosetLongDesc,
+        elem.descriptionId,
         elem.resultType,
         elem.resultName,
         elem.resultDescTrue,
@@ -50,8 +50,8 @@ module.exports = {
         if (err) {
           genomeService.clearUserJSON()
           console.error(err);
-            // testResultsArray = null;
-            // req.body.genomeResults = null;
+          // testResultsArray = null;
+          // req.body.genomeResults = null;
         } else {
 
           itemsProcessed++;
@@ -71,18 +71,18 @@ module.exports = {
     let genomeName = req.body.genomeName;
     let genomeDate = new Date();
     db.genotypes.insertGenotypeClassifiers([
-        genomeId,
-        userId,
-        genomeName,
-        genomeDate
-      ], (err, result) => {
-        if (err) {
-          console.error(err)
-          next();
-        } else {
-          next();
-        }
-      })
+      genomeId,
+      userId,
+      genomeName,
+      genomeDate
+    ], (err, result) => {
+      if (err) {
+        console.error(err)
+        next();
+      } else {
+        next();
+      }
+    })
   },
 
   getAllGenomeResultsByUserId: (req, res, next) => {
@@ -96,42 +96,37 @@ module.exports = {
     let itemsProcessed = 0;
 
     userGenomeIds.forEach((elem, index, array) => {
-       db.genotypes.getGenomeResultsByUserId([
+      db.genotypes.getGenomeResultsByUserId([
         userId,
         elem
       ], (err, result) => {
         if (err) {
           console.error(err);
           return res.status(404)
-                    .json(err);
+            .json(err);
         } else {
           let rawGenomeResults = result;
-          let categoryContainer = [
-            {
-              categoryTitle: "Health Risks",
-              reportTitle: "Condition",
-              reportResultTitle: "Your Risk",
-              resultsArray: []
-            },
-            {
-              categoryTitle: "Traits",
-              reportTitle: "Report",
-              reportResultTitle: "Your Result",
-              resultsArray: []
-            },
-            {
-              categoryTitle: "Inherited Conditions",
-              reportTitle: "Report",
-              reportResultTitle: "Your Result",
-              resultsArray: []
-            },
-            {
-              categoryTitle: "Drug Response",
-              reportTitle: "Report",
-              reportResultTitle: "Your Result",
-              resultsArray: []
-            }
-          ];
+          let categoryContainer = [{
+            categoryTitle: "Health Risks",
+            reportTitle: "Condition",
+            reportResultTitle: "Your Risk",
+            resultsArray: []
+          }, {
+            categoryTitle: "Traits",
+            reportTitle: "Report",
+            reportResultTitle: "Your Result",
+            resultsArray: []
+          }, {
+            categoryTitle: "Inherited Conditions",
+            reportTitle: "Report",
+            reportResultTitle: "Your Result",
+            resultsArray: []
+          }, {
+            categoryTitle: "Drug Response",
+            reportTitle: "Report",
+            reportResultTitle: "Your Result",
+            resultsArray: []
+          }];
           rawGenomeResults.forEach(elem1 => {
             let resultType = elem1.resulttype;
             categoryContainer.forEach(elem2 => {
@@ -163,31 +158,38 @@ module.exports = {
   },
 
   insertDetail: (req, res, next) => {
-    let newDetail = req.body;
-    db.genotypes.insertDetail([req.body], (err, result) => {
-      if (err) {
-        res.status(400).json(err)
-      } else {
-        res.status(200).json(result)
-      }
+
+    let detailsArray = req.body.details;
+    let itemsProcessed = 0;
+    detailsArray.forEach((elem, index, array) => {
+
+      let newDetail = elem;
+      db.genotypes.insertDetail([newDetail], (err, result) => {
+        if (err) {
+          res.status(400).json(err)
+        } else {
+          itemsProcessed++;
+          if (itemsProcessed === array.length) {
+            res.status(200).json('Finished uploading results')
+          }
+        }
+      })
     })
   },
 
   getDetail: (req, res, next) => {
-    let genosetName = req.params.genosetName;
+    let descriptionId = req.params.descriptionId;
     db.genotypes.getDetail([
-        'genosetName',
-        genosetName
-      ], (err, result) => {
-        if (err) {
-          console.log(err)
-          res.status(400).json(err);
-        } else {
-          res.status(200).json(result);
-        }
-      });
+      'id',
+      descriptionId
+    ], (err, result) => {
+      if (err) {
+        console.log(err)
+        res.status(400).json(err);
+      } else {
+        res.status(200).json(result);
+      }
+    });
   },
 
 };
-
-
