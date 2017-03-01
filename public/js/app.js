@@ -113,6 +113,32 @@
               });
           }
         }
+      })
+      .state('detail', {
+        url: '/detail/:genosetName',
+        controller: 'detailController',
+        templateUrl: './../views/detail.html',
+        resolve: {
+          user: (AuthService, $state) => {
+
+            return AuthService.getUser()
+              .then((response) => {
+                let currentUser = {
+                  userId: response.userid,
+                  userName: response.username,
+                  isAuthed: true
+                }
+                return currentUser
+              })
+              .catch((error) => {
+                let currentUser = {
+                  isAuthed: false
+                }
+                $state.go('home')
+                return currentUser
+              });
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/home');

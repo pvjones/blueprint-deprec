@@ -1,0 +1,80 @@
+.detail {
+
+  color: #004a71;
+
+  .detail-subheader {
+    display: flex;
+    align-items: flex-end;
+    padding: 40px 0px 20px 0px;
+
+    .detail-title {
+      font-size: 4rem;
+      line-height: 5.3rem;
+
+      margin-right: 30px;
+    }
+
+    .detail-genoset-name {
+      font-size: 3rem;
+      text-align: left;
+    }
+  }
+
+  .detail-description-wrapper {
+    margin-bottom: 40px;
+
+    .detail-description {
+      font-family: 'ProximaNova Regular Light';
+      font-size: 1.9rem;
+    }
+
+    .detail-image {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: flex-end;
+      overflow: hidden;
+      border: 1px solid rgba(0, 74, 113, 0.5);
+      border-radius: 3px;
+
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .snp-table {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .table-head {
+      text-transform: uppercase;
+      font-family: 'ProximaNova Condensed Semibold';
+      font-size: 1.5rem;
+      background-color: rgba(0, 54, 113, 0.1);
+   
+    }
+
+    .table-row {
+      display: flex;
+      flex-flow: row nowrap;
+      border-bottom: 1px solid rgba(0, 74, 113, 0.2);
+      padding: 10px;
+    }
+
+    .table-body {
+      margin-bottom: 50px;
+      font-family: 'ProximaNova Condensed Light'
+    }
+
+    .table-cell {
+      display: flex;
+      flex-flow: row nowrap;
+      flex-grow: 1;
+      flex-basis: 0;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    } 
+  }
+}

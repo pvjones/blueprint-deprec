@@ -101,6 +101,29 @@
           });
         }
       }
+    }).state('detail', {
+      url: '/detail/:genosetName',
+      controller: 'detailController',
+      templateUrl: './../views/detail.html',
+      resolve: {
+        user: function user(AuthService, $state) {
+
+          return AuthService.getUser().then(function (response) {
+            var currentUser = {
+              userId: response.userid,
+              userName: response.username,
+              isAuthed: true
+            };
+            return currentUser;
+          }).catch(function (error) {
+            var currentUser = {
+              isAuthed: false
+            };
+            $state.go('home');
+            return currentUser;
+          });
+        }
+      }
     });
 
     $urlRouterProvider.otherwise('/home');
@@ -343,6 +366,25 @@
 'use strict';
 
 (function () {
+  angular.module('app').controller('detailController', detailController);
+
+  function detailController($scope, $stateParams, DetailService) {
+
+    getDetail($stateParams.genosetName);
+
+    function getDetail(genosetName) {
+      DetailService.getDetail(genosetName).then(function (response) {
+        $scope.detail = response;
+        console.log('detailController', $scope.detail);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    };
+  };
+})();
+'use strict';
+
+(function () {
   angular.module('app').controller('HomeController', HomeController);
 
   function HomeController($scope, user) {
@@ -546,6 +588,27 @@
       });
     };
   }
+})();
+'use strict';
+
+(function () {
+
+  angular.module('app').service('DetailService', DetailService);
+
+  function DetailService($http) {
+
+    this.getDetail = function (genosetName) {
+      return $http({
+        method: 'GET',
+        url: '/api/getdetail/' + genosetName
+      }).then(function (response) {
+        return response.data[0].detailobject;
+      }).catch(function (error) {
+        console.log(error);
+        throw new Error(error);
+      });
+    };
+  };
 })();
 'use strict';
 

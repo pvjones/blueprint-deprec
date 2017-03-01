@@ -53,7 +53,7 @@ db.init.createUserTable([], (err, result) => {
   if (err) {
     console.error(err);
   } else {
-    console.log('userTable initialized')
+    console.log('userTable initialized');
   }
 });
 
@@ -61,7 +61,7 @@ db.init.createGenotypeResultsTable([], (err, result) => {
   if (err) {
     console.error(err);
   } else {
-    console.log('genotypeResultsTable initialized')
+    console.log('genotypeResultsTable initialized');
   }
 });
 
@@ -69,16 +69,24 @@ db.init.createUserGenomesTable([], (err, result) => {
   if (err) {
     console.error(err);
   } else {
-    console.log('userGenomeTable initialized')
+    console.log('userGenomeTable initialized');
   }
 });
+
+db.init.createDetailsTable([], (err, result) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('detailsTable initialized');
+  }
+})
 
 /* AUTH0 SETUP */
 /////////////////
 
 passport.use(new Auth0Strategy(config.authConfig, (accessToken, refreshToken, extraParams, profile, done) => {
 
-  db.user.getUserByAuthId([profile.id], function(err, result) { //cb to execute after return from Auth0 (find user in DB)
+  db.user.getUserByAuthId([profile.id], function(err, result) { //cb to execute after return from Auth0 (i.e. find user in DB)
     if (err) {
       console.error(err)
     };
@@ -94,7 +102,7 @@ passport.use(new Auth0Strategy(config.authConfig, (accessToken, refreshToken, ex
         };
         return done(err, result[0]); // GOES TO SERIALIZE USER **done function  is the same thing as 'next' function
       })
-    } else { //when we find the user, return it
+    } else { //once user is found, return
       return done(err, result);
     }
   })
@@ -142,6 +150,12 @@ app.get('/api/results/:userId', genomeController.getMaxGenomeId, genomeControlle
   return res.status(200)
     .send(req.body.allGenomeResults)
 });
+
+
+
+app.post('/api/insertdetail', genomeController.insertDetail);
+
+app.get('/api/getdetail/:genosetName', genomeController.getDetail);
 
 /* LISTEN */
 ////////////

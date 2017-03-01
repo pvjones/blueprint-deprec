@@ -69,6 +69,11 @@
     .button {
       margin-top: auto;
     }
+
+      a:hover {
+    color: white;
+  }
+
 }
 
 .input-container {
@@ -88,7 +93,6 @@
   .input-text::-webkit-input-placeholder { 
     color: rgba(255, 255, 255, .8); 
   }
-
 }
 
 .inputfile {

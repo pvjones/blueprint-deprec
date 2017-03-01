@@ -5,9 +5,10 @@
 
   display: flex;
   align-items: center;
+  margin-left: -5px;
   padding: 4px 4px 4px 10px;
 
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 
   -webkit-user-select:none;
   -moz-user-select:none;

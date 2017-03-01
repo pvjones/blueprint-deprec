@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS details(
+  id SERIAL PRIMARY KEY,
+  detailobject JSON
+);

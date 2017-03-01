@@ -160,7 +160,33 @@ module.exports = {
 
   getResultsByGenomeId: (req, res, next) => {
 
-  }
+  },
+
+  insertDetail: (req, res, next) => {
+    let newDetail = req.body;
+    db.genotypes.insertDetail([req.body], (err, result) => {
+      if (err) {
+        res.status(400).json(err)
+      } else {
+        res.status(200).json(result)
+      }
+    })
+  },
+
+  getDetail: (req, res, next) => {
+    let genosetName = req.params.genosetName;
+    db.genotypes.getDetail([
+        'genosetName',
+        genosetName
+      ], (err, result) => {
+        if (err) {
+          console.log(err)
+          res.status(400).json(err);
+        } else {
+          res.status(200).json(result);
+        }
+      });
+  },
 
 };
 

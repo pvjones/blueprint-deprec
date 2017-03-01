@@ -3,8 +3,9 @@
   position: relative;
   display: flex;
   align-items: center;
+  margin-left: -5px;
   padding: 4px 4px 4px 10px;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
@@ -204,6 +205,34 @@
   opacity: 1;
   transition: visibility 0s linear 0.2s;
   transition-delay: 0s; }
+
+@font-face {
+  font-family: 'ProximaNova Regular';
+  src: url("./../styles/fonts/ProximaNova-Regular.woff") format("woff"); }
+
+@font-face {
+  font-family: 'ProximaNova Bold';
+  src: url("./../styles/fonts/ProximaNova-Bold.woff") format("woff"); }
+
+@font-face {
+  font-family: 'ProximaNova Semibold';
+  src: url("./../styles/fonts/ProximaNova-Semibold.woff") format("woff"); }
+
+@font-face {
+  font-family: 'ProximaNova Condensed Semibold';
+  src: url("./../styles/fonts/ProximaNovaCond-Semibold.woff") format("woff"); }
+
+@font-face {
+  font-family: 'ProximaNova Condensed Light';
+  src: url("./../styles/fonts/ProximaNovaCond-Light.woff") format("woff"); }
+
+@font-face {
+  font-family: 'ProximaNova Regular Light';
+  src: url("./../styles/fonts/ProximaNova-Light.woff") format("woff"); }
+
+@font-face {
+  font-family: 'Verlag Light';
+  src: url("./../styles/fonts/Verlag-Light.woff") format("woff"); }
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
@@ -1035,27 +1064,60 @@ there.
 /* Larger than desktop */
 /* Larger than Desktop HD */
 
+.detail {
+  color: #004a71; }
+  .detail .detail-subheader {
+    display: flex;
+    align-items: flex-end;
+    padding: 40px 0px 20px 0px; }
+    .detail .detail-subheader .detail-title {
+      font-size: 4rem;
+      line-height: 5.3rem;
+      margin-right: 30px; }
+    .detail .detail-subheader .detail-genoset-name {
+      font-size: 3rem;
+      text-align: left; }
+  .detail .detail-description-wrapper {
+    margin-bottom: 40px; }
+    .detail .detail-description-wrapper .detail-description {
+      font-family: 'ProximaNova Regular Light';
+      font-size: 1.9rem; }
+    .detail .detail-description-wrapper .detail-image {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: flex-end;
+      overflow: hidden;
+      border: 1px solid rgba(0, 74, 113, 0.5);
+      border-radius: 3px; }
+    .detail .detail-description-wrapper img {
+      width: 100%;
+      height: auto; }
+  .detail .snp-table {
+    display: flex;
+    flex-flow: column nowrap; }
+    .detail .snp-table .table-head {
+      text-transform: uppercase;
+      font-family: 'ProximaNova Condensed Semibold';
+      font-size: 1.5rem;
+      background-color: rgba(0, 54, 113, 0.1); }
+    .detail .snp-table .table-row {
+      display: flex;
+      flex-flow: row nowrap;
+      border-bottom: 1px solid rgba(0, 74, 113, 0.2);
+      padding: 10px; }
+    .detail .snp-table .table-body {
+      margin-bottom: 50px;
+      font-family: 'ProximaNova Condensed Light'; }
+    .detail .snp-table .table-cell {
+      display: flex;
+      flex-flow: row nowrap;
+      flex-grow: 1;
+      flex-basis: 0;
+      justify-content: center;
+      align-items: center;
+      text-align: center; }
+
 @charset "UTF-8";
-@font-face {
-  font-family: 'ProximaNova Regular';
-  src: url("./../styles/fonts/ProximaNova-Regular.woff") format("woff"); }
-
-@font-face {
-  font-family: 'ProximaNova Bold';
-  src: url("./../styles/fonts/ProximaNova-Bold.woff") format("woff"); }
-
-@font-face {
-  font-family: 'ProximaNova Semibold';
-  src: url("./../styles/fonts/ProximaNova-Semibold.woff") format("woff"); }
-
-@font-face {
-  font-family: 'ProximaNova Condensed Semibold';
-  src: url("./../styles/fonts/ProximaNovaCond-Semibold.woff") format("woff"); }
-
-@font-face {
-  font-family: 'ProximaNova Condensed Light';
-  src: url("./../styles/fonts/ProximaNovaCond-Light.woff") format("woff"); }
-
 /* GENERAL STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .flex {
@@ -1153,7 +1215,7 @@ div.show-button {
   opacity: 0;
   transition: opacity 0.3s linear;
   width: 100vw;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(238, 246, 249, 0.85);
   border-bottom: 1px solid rgba(0, 74, 113, 0.2); }
   .sticky div.menu-item {
     padding: 10px; }
@@ -1386,6 +1448,8 @@ input[disabled] + label:hover {
     text-align: left; }
   .start-item .button {
     margin-top: auto; }
+  .start-item a:hover {
+    color: white; }
 
 .input-container {
   margin-top: auto;
@@ -1496,9 +1560,24 @@ input[disabled] + label:hover {
     color: #ff533a; }
   .summary .yellow, .summary-all-results .yellow {
     color: #FFAF3A; }
+  .summary div.table-body div:hover, .summary-all-results div.table-body div:hover {
+    cursor: pointer;
+    background-color: #f4f6f8; }
+  .summary div.table-body div, .summary-all-results div.table-body div {
+    transition: 0.2s linear; }
+
+.filter-by {
+  padding: 15px 15px 0px 0px; }
+  .filter-by input {
+    margin: 0px;
+    color: #8AA8BD; }
+  .filter-by input[type="text"]::-webkit-input-placeholder {
+    color: orange;
+    padding-top: 10px;
+    font-family: 'ProximaNova Condensed Light'; }
 
 .summary-subheader {
-  background-color: rgba(0, 54, 113, 0.08);
+  background-color: rgba(0, 54, 113, 0.1);
   border-bottom: 1px solid rgba(0, 74, 113, 0.2);
   padding: 10px; }
   .summary-subheader .flex-row {
@@ -1512,7 +1591,7 @@ div.category-container div:nth-child(odd) {
   margin-left: 0px !important; }
 
 div.category-container {
-  padding-top: 30px;
+  padding-top: 20px;
   padding-bottom: 100px; }
   div.category-container .category-title {
     padding: 5px 15px;
@@ -1547,7 +1626,8 @@ div.category-container {
 
 /* ALL RESULTS */
 .summary-all-results .table-body {
-  padding-bottom: 50px; }
+  padding-bottom: 50px;
+  max-height: none !important; }
 
 .summary-all-results .category-table .table-cell {
   width: 300px; }
@@ -1557,11 +1637,5 @@ div.category-container {
 
 .summary-all-results .category-table .result {
   text-align: right; }
-
-.summary-all-results div.category-container .table-body {
-  max-height: none; }
-
-.summary-all-results .scroll-for-more {
-  display: none; }
 
 /*# sourceMappingURL=public/maps/styles.css.map */

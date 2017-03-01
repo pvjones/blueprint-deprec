@@ -14,9 +14,9 @@
                     file: uploadTXT,
                     genomeName: genomeName
                   }
-      }).then(function(res) {      
+      }).then((res) => {      
         deferred.resolve(res.data);    
-      }).catch(function(res) {      
+      }).catch((res) => {      
         deferred.reject(res);    
       });    
       return deferred.promise;

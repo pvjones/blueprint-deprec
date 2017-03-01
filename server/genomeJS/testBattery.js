@@ -145,17 +145,17 @@ module.exports = {
       resultDescFalse: 'Average',
       resultQual: 'negative'
     }, 
-    // {
-    //   id: 14,
-    //   genosetName: 'gs248',
-    //   genosetDesc: 'likely decreased risk of developing Parkinsons Disease',
-    //   genosetLongDesc: '',
-    //   resultType: 'Health Risks',
-    //   resultName: 'Parkinson\'s Disease',
-    //   resultDescTrue: 'Slightly Less Likely',
-    //   resultDescFalse: 'Average',
-    //   resultQual: ''
-    // }, 
+    {
+      id: 14,
+      genosetName: 'gs248',
+      genosetDesc: 'likely decreased risk of developing Parkinsons Disease',
+      genosetLongDesc: '',
+      resultType: 'Health Risks',
+      resultName: 'Parkinson\'s Disease',
+      resultDescTrue: 'Slightly Less Likely',
+      resultDescFalse: 'Average',
+      resultQual: ''
+    }, 
     {
       id: 15,
       genosetName: 'gs116',
