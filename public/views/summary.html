@@ -20,7 +20,12 @@
   <div class="row u-full-width">
     <div class="container filter-by">
       <div class="four columns">
-        <input type="text" placeholder="Filter your results..." />
+        <input type="text" placeholder="Filter your results..." ng-model="FilterService.searchTerm" ng-change="triggerFilter('search')" />
+      </div>
+      <div class="four columns">
+        <div class="button" ng-click="triggerFilter('healthAlert')">
+          Show Health Alerts
+        </div>
       </div>
     </div>
   </div>

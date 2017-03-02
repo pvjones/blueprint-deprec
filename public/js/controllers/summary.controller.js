@@ -3,7 +3,8 @@
     .module('app')
     .controller('SummaryController', SummaryController)
 
-  function SummaryController($scope, $state, user, ResultsService, ZygousityService, $filter) {
+  function SummaryController($scope, $state, user, ResultsService, ZygousityService, FilterService, $filter) {
+    $scope.FilterService = FilterService;
 
     $scope.userName = user.userName;
     $scope.userId = user.userId;
@@ -51,6 +52,11 @@
 
         })
       }
+    }
+
+    $scope.triggerFilter = (filterName) => {
+      console.log('filterName', filterName);
+      FilterService.setFilter(filterName);
     }
 
   }; // END OF CTRL FUNC

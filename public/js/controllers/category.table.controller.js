@@ -4,7 +4,9 @@
     .module('app')
     .controller('categoryTableController', categoryTableController)
 
-  function categoryTableController() {
+  function categoryTableController(FilterService) {
+
+    this.FilterService = FilterService;
 
     this.colorResult = (resultObj) => {
       let color = "";
@@ -26,8 +28,7 @@
         color = "red";
       } else {
         color = "black"
-      }
-    
+      }    
       
     return color;
     }
