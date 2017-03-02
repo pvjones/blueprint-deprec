@@ -43,6 +43,18 @@
     }
   }
 
+  .genome-map-container {
+
+    margin-left: -5px;
+
+
+    .genome-map-title {
+      border-top: 1px solid rgba(0, 74, 113, 0.12);
+      padding: 5px;
+      font-size: 3rem;
+    }
+  }
+
   .snp-table {
     display: flex;
     flex-flow: column nowrap;

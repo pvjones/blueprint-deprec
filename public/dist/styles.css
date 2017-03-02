@@ -1092,6 +1092,12 @@ there.
     .detail .detail-description-wrapper img {
       width: 100%;
       height: auto; }
+  .detail .genome-map-container {
+    margin-left: -5px; }
+    .detail .genome-map-container .genome-map-title {
+      border-top: 1px solid rgba(0, 74, 113, 0.12);
+      padding: 5px;
+      font-size: 3rem; }
   .detail .snp-table {
     display: flex;
     flex-flow: column nowrap; }
