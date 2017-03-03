@@ -1,16 +1,24 @@
 (function() {
-    angular
-      .module('app')
-      .directive('genomeChart', genomeChart);
+  angular
+    .module('app')
+    .directive('genomeChart', genomeChart);
 
-    function genomeChart() {
+  function genomeChart(ChartResizeService) {
 
-      return {
-        restrict: 'E',
-        scope: {
-          data: '='
-        },
-        link: function(scope, elem, attrs) {
+    return {
+      restrict: 'E',
+      scope: {
+        data: '='
+      },
+      link: function(scope, elem, attrs) {
+
+          let chartElement = elem[0];
+
+          let width = ChartResizeService.calculateElementWidth(chartElement)
+          window.onresize = (event) => {
+            width = ChartResizeService.calculateElementWidth(chartElement)
+            updateChart()
+          }
 
           var margins = {
             top: 5,
@@ -18,7 +26,7 @@
             right: 5,
             bottom: 5
           };
-          var width = 500 - margins.left - margins.right;
+
           var height = 40 - margins.top - margins.bottom;
 
           var chromosomeRef = {
@@ -214,8 +222,6 @@
             });
           });
 
-
-
           scope.$watch("data", (n, o) => {
             if (n !== o) {
               updateChart();
@@ -224,88 +230,91 @@
 
           function updateChart() {
 
-          let snpVals = []
+            d3.select(elem[0]).selectAll('svg').remove()
 
-          scope.data.forEach((elem) => {
-            let position = 0; 
+            let svg = d3.select(elem[0])
+              .append('svg')
+              .attr('width', width + margins.left + margins.right)
+              .attr('height', height + margins.bottom + margins.top)
+              .append('g')
+              .attr('transform', `translate(${margins.left},${margins.top})`)
 
-            let chromosomeNums = []
-            for (let i = 1; i <= elem.chromosome; i++) {
-              chromosomeNums.push(i)
-            }
-            chromosomeNums.forEach((elem) => {
-              position += chromosomeRef[elem];
-            })
+            let snpVals = []
 
-            position += +elem.position;
-            snpVals.push(position)
-            
-          }) //END OF FOREACH
+            scope.data.forEach((elem) => {
+                let position = 0;
 
-          console.log("genome-chart directive", snpVals)
+                let chromosomeNums = []
+                for (let i = 1; i <= elem.chromosome; i++) {
+                  chromosomeNums.push(i)
+                }
+                chromosomeNums.forEach((elem) => {
+                  position += chromosomeRef[elem];
+                })
+                position += +elem.position;
+                snpVals.push(position)
+              }) //END OF FOREACH
 
-          let svg = d3.select(elem[0])
-            .append('svg')
-            .attr('width', width + margins.left + margins.right)
-            .attr('height', height + margins.bottom + margins.top)
-            .append('g')
-            .attr('transform', `translate(${margins.left},${margins.top})`)
-
-          let xMax = d3.max(dataset, function(group) {
-            return d3.max(group, function(d) {
-              return d.x + d.x0;
+            let xMax = d3.max(dataset, function(group) {
+              return d3.max(group, function(d) {
+                return d.x + d.x0;
+              });
             });
-          });
 
-          let xScale = d3.scale.linear()
-            .domain([0, xMax])
-            .range([0, width])
+            let xScale = d3.scale.linear()
+              .domain([0, xMax])
+              .range([0, width])
 
-          let colors = d3.scale.linear()
-            .domain([1, width / 20])
-            .interpolate(d3.interpolateHcl)
-            .range([d3.rgb("#104f99"), d3.rgb('#f75050')]);
+            let colors = d3.scale.linear()
+              .domain([1, width / 20])
+              .interpolate(d3.interpolateHcl)
+              .range([d3.rgb("#104f99"), d3.rgb('#f75050')]);
 
-          let groups = svg.selectAll('g')
-            .data(dataset)
+            let groups = svg.selectAll('g')
+              .data(dataset);
 
-          groups.exit().transition().duration(0).remove()
+            groups.enter().append('g')
+              .style('fill', function(d, i) {
+                return colors(i);
+              })
+              .attr('fill-opacity', 0.6)
+              .style('stroke', function(d, i) {
+                return colors(i);
+              })
+              .style('stroke-width', 1)
 
-          groups.enter().append('g')
-            .style('fill', function(d, i) {
-              return colors(i);
+            d3.selectAll('rect').remove()
+
+            let rects = groups.selectAll('rect')
+              .data(function(d) {
+                return d;
+              });
+
+            rects.enter().append('rect')
+              .attr('x', function(d) {
+                return xScale(d.x0);
+              })
+              .attr('height', 30)
+              .attr('width', function(d) {
+                return xScale(d.x) - 3;
+              })
+
+            rects.exit().remove();
+
+            d3.selectAll('.snp-line').remove()
+            snpVals.forEach(function(elem) {
+
+              svg.append('rect')
+                .attr('fill', 'red')
+                .attr('width', 3)
+                .attr('height', 40)
+                .attr('x', xScale(elem))
+                .attr('y', -5)
+                .classed('snp-line', true)
             })
-            .attr('fill-opacity', 0.6)
-            .style('stroke', function(d, i) {
-              return colors(i);
-            })
-            .style('stroke-width', 1)
 
-          let rects = groups.selectAll('rect')
-            .data(function(d) {
-              return d;
-            })
-            .enter().append('rect')
-            .attr('x', function(d) {
-              return xScale(d.x0);
-            })
-            .attr('height', 30)
-            .attr('width', function(d) {
-              return xScale(d.x) - 3;
-            })
-
-          snpVals.forEach(function(elem) {
-
-            svg.append('rect')
-              .attr('fill', 'red')
-              .attr('width', 3)
-              .attr('height', 40)
-              .attr('x', xScale(elem))
-              .attr('y', -5);
-
-          })
-        }
-      } //end of link
+          }
+        } //end of link
     };
   };
 })();

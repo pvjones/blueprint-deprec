@@ -640,7 +640,7 @@ th {
     padding: 0; } }
 
 /* For devices larger than 550px */
-@media (min-width: 550px) {
+@media (min-width: 700px) {
   .container {
     width: 80%; }
   .column,
@@ -1092,12 +1092,11 @@ there.
     .detail .detail-description-wrapper img {
       width: 100%;
       height: auto; }
-  .detail .genome-map-container {
-    margin-left: -5px; }
-    .detail .genome-map-container .genome-map-title {
-      border-top: 1px solid rgba(0, 74, 113, 0.12);
-      padding: 5px;
-      font-size: 3rem; }
+  .detail .genome-map-container .genome-map-title {
+    border-top: 1px solid rgba(0, 74, 113, 0.12);
+    font-size: 3rem; }
+  .detail .genome-map-container .genome-map {
+    width: 100%; }
   .detail .snp-table {
     display: flex;
     flex-flow: column nowrap; }

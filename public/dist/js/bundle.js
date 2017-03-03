@@ -539,156 +539,9 @@
 'use strict';
 
 (function () {
-  angular.module('app').service('AuthService', AuthService);
-
-  function AuthService($http) {
-
-    this.getUser = function () {
-      return $http({
-        method: 'GET',
-        url: '/api/auth/user'
-      }).then(function (response) {
-        return response.data[0];
-      }).catch(function (err) {
-        throw new Error(err);
-      });
-    };
-  }
-})();
-'use strict';
-
-(function () {
-
-  angular.module('app').service('DetailService', DetailService);
-
-  function DetailService($http) {
-
-    this.getDetail = function (descriptionId) {
-      return $http({
-        method: 'GET',
-        url: '/api/getdetail/' + descriptionId
-      }).then(function (response) {
-        return response.data[0].detailobject;
-      }).catch(function (error) {
-        console.log(error);
-        throw new Error(error);
-      });
-    };
-  };
-})();
-'use strict';
-
-(function () {
-
-  angular.module('app').service('FilterService', FilterService);
-
-  function FilterService() {
-    this.filter = '';
-    this.searchTerm = '';
-
-    this.setFilter = function (filterName) {
-      switch (filterName) {
-        case 'search':
-          if (this.searchTerm && this.searchTerm.length > 0) {
-            this.filter = { resultname: this.searchTerm };
-          }
-          break;
-        case 'healthAlert':
-          this.filter = { resultbool: true, resultqual: 'negative' };
-          break;
-        default:
-          this.filter = '';
-      };
-    };
-  };
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('ResultsService', ResultsService);
-
-  function ResultsService($http) {
-
-    this.getResultsByUserId = function (userId) {
-      //console.log("service userId", userId)
-      return $http({
-        method: 'GET',
-        url: '/api/results/' + userId
-      }).then(function (response) {
-        //console.log('valid response from $http', response)
-        return response.data;
-      }).catch(function (err) {
-        console.log(err);
-        throw new Error(err);
-      });
-    };
-  }; // END OF SVC FUNC
-})(); // END OF IIFE
-'use strict';
-
-(function () {
-  angular.module('app').service('UploadService', UploadService);
-
-  function UploadService($http, $q) {
-
-    this.sendGenomeTXT = function (uploadTXT, genomeName) {
-      var deferred = $q.defer();
-      $http({
-        method: 'POST',
-        url: '/api/upload',
-        data: {
-          file: uploadTXT,
-          genomeName: genomeName
-        }
-      }).then(function (res) {
-        deferred.resolve(res.data);
-      }).catch(function (res) {
-        deferred.reject(res);
-      });
-      return deferred.promise;
-    };
-  } //END OF SVC FUNC
-})(); //END OF IIFE
-'use strict';
-
-(function () {
-
-  angular.module('app').service('ZygousityService', ZygousityService);
-
-  function ZygousityService() {
-
-    this.handleZygousity = function (categoryArray) {
-      var cleansedArray = categoryArray;
-
-      for (var i = cleansedArray.length - 1; i >= 0; i--) {
-
-        if (cleansedArray[i]) {
-
-          for (var j = i - 1; j >= 0; j--) {
-
-            if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[j].resultbool === true) {
-              cleansedArray.splice(i, 1);
-              break;
-            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === true) {
-              cleansedArray.splice(j, 1);
-              break;
-            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === false && cleansedArray[j].resultbool === false) {
-              cleansedArray.splice(j, 1);
-              break;
-            }
-          }
-        }
-      }
-      return cleansedArray;
-    };
-  };
-})();
-'use strict';
-
-(function () {
   angular.module('app').directive('genomeChart', genomeChart);
 
-  function genomeChart() {
+  function genomeChart(ChartResizeService) {
 
     return {
       restrict: 'E',
@@ -697,13 +550,21 @@
       },
       link: function link(scope, elem, attrs) {
 
+        var chartElement = elem[0];
+
+        var width = ChartResizeService.calculateElementWidth(chartElement);
+        window.onresize = function (event) {
+          width = ChartResizeService.calculateElementWidth(chartElement);
+          updateChart();
+        };
+
         var margins = {
           top: 5,
           left: 5,
           right: 5,
           bottom: 5
         };
-        var width = 500 - margins.left - margins.right;
+
         var height = 40 - margins.top - margins.bottom;
 
         var chromosomeRef = {
@@ -907,6 +768,10 @@
 
         function updateChart() {
 
+          d3.select(elem[0]).selectAll('svg').remove();
+
+          var svg = d3.select(elem[0]).append('svg').attr('width', width + margins.left + margins.right).attr('height', height + margins.bottom + margins.top).append('g').attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
+
           var snpVals = [];
 
           scope.data.forEach(function (elem) {
@@ -919,14 +784,9 @@
             chromosomeNums.forEach(function (elem) {
               position += chromosomeRef[elem];
             });
-
             position += +elem.position;
             snpVals.push(position);
           }); //END OF FOREACH
-
-          console.log("genome-chart directive", snpVals);
-
-          var svg = d3.select(elem[0]).append('svg').attr('width', width + margins.left + margins.right).attr('height', height + margins.bottom + margins.top).append('g').attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
 
           var xMax = d3.max(dataset, function (group) {
             return d3.max(group, function (d) {
@@ -940,25 +800,30 @@
 
           var groups = svg.selectAll('g').data(dataset);
 
-          groups.exit().transition().duration(0).remove();
-
           groups.enter().append('g').style('fill', function (d, i) {
             return colors(i);
           }).attr('fill-opacity', 0.6).style('stroke', function (d, i) {
             return colors(i);
           }).style('stroke-width', 1);
 
+          d3.selectAll('rect').remove();
+
           var rects = groups.selectAll('rect').data(function (d) {
             return d;
-          }).enter().append('rect').attr('x', function (d) {
+          });
+
+          rects.enter().append('rect').attr('x', function (d) {
             return xScale(d.x0);
           }).attr('height', 30).attr('width', function (d) {
             return xScale(d.x) - 3;
           });
 
+          rects.exit().remove();
+
+          d3.selectAll('.snp-line').remove();
           snpVals.forEach(function (elem) {
 
-            svg.append('rect').attr('fill', 'red').attr('width', 3).attr('height', 40).attr('x', xScale(elem)).attr('y', -5);
+            svg.append('rect').attr('fill', 'red').attr('width', 3).attr('height', 40).attr('x', xScale(elem)).attr('y', -5).classed('snp-line', true);
           });
         }
       } //end of link
@@ -1011,6 +876,172 @@
           reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
         });
       }
+    };
+  };
+})();
+'use strict';
+
+(function () {
+  angular.module('app').service('AuthService', AuthService);
+
+  function AuthService($http) {
+
+    this.getUser = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/auth/user'
+      }).then(function (response) {
+        return response.data[0];
+      }).catch(function (err) {
+        throw new Error(err);
+      });
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('app').service('ChartResizeService', ChartResizeService);
+
+  function ChartResizeService() {
+
+    this.calculateElementWidth = function (element) {
+      if (!element.offsetWidth) {
+        return 0;
+      }
+      var style = window.getComputedStyle(element);
+      var width = element.offsetWidth;
+      return width;
+
+      console.log(style);
+    };
+  };
+})();
+'use strict';
+
+(function () {
+
+  angular.module('app').service('DetailService', DetailService);
+
+  function DetailService($http) {
+
+    this.getDetail = function (descriptionId) {
+      return $http({
+        method: 'GET',
+        url: '/api/getdetail/' + descriptionId
+      }).then(function (response) {
+        return response.data[0].detailobject;
+      }).catch(function (error) {
+        console.log(error);
+        throw new Error(error);
+      });
+    };
+  };
+})();
+'use strict';
+
+(function () {
+
+  angular.module('app').service('FilterService', FilterService);
+
+  function FilterService() {
+    this.filter = '';
+    this.searchTerm = '';
+
+    this.setFilter = function (filterName) {
+      switch (filterName) {
+        case 'search':
+          if (this.searchTerm && this.searchTerm.length > 0) {
+            this.filter = { resultname: this.searchTerm };
+          }
+          break;
+        case 'healthAlert':
+          this.filter = { resultbool: true, resultqual: 'negative' };
+          break;
+        default:
+          this.filter = '';
+      };
+    };
+  };
+})();
+'use strict';
+
+(function () {
+  angular.module('app').service('ResultsService', ResultsService);
+
+  function ResultsService($http) {
+
+    this.getResultsByUserId = function (userId) {
+      //console.log("service userId", userId)
+      return $http({
+        method: 'GET',
+        url: '/api/results/' + userId
+      }).then(function (response) {
+        //console.log('valid response from $http', response)
+        return response.data;
+      }).catch(function (err) {
+        console.log(err);
+        throw new Error(err);
+      });
+    };
+  }; // END OF SVC FUNC
+})(); // END OF IIFE
+'use strict';
+
+(function () {
+  angular.module('app').service('UploadService', UploadService);
+
+  function UploadService($http, $q) {
+
+    this.sendGenomeTXT = function (uploadTXT, genomeName) {
+      var deferred = $q.defer();
+      $http({
+        method: 'POST',
+        url: '/api/upload',
+        data: {
+          file: uploadTXT,
+          genomeName: genomeName
+        }
+      }).then(function (res) {
+        deferred.resolve(res.data);
+      }).catch(function (res) {
+        deferred.reject(res);
+      });
+      return deferred.promise;
+    };
+  } //END OF SVC FUNC
+})(); //END OF IIFE
+'use strict';
+
+(function () {
+
+  angular.module('app').service('ZygousityService', ZygousityService);
+
+  function ZygousityService() {
+
+    this.handleZygousity = function (categoryArray) {
+      var cleansedArray = categoryArray;
+
+      for (var i = cleansedArray.length - 1; i >= 0; i--) {
+
+        if (cleansedArray[i]) {
+
+          for (var j = i - 1; j >= 0; j--) {
+
+            if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[j].resultbool === true) {
+              cleansedArray.splice(i, 1);
+              break;
+            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === true) {
+              cleansedArray.splice(j, 1);
+              break;
+            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === false && cleansedArray[j].resultbool === false) {
+              cleansedArray.splice(j, 1);
+              break;
+            }
+          }
+        }
+      }
+      return cleansedArray;
     };
   };
 })();

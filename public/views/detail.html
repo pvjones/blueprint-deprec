@@ -13,45 +13,48 @@
 
   <div class="row detail-description-wrapper">
     <div class="container">
-      <div class="seven columns detail-description">
-        {{detail.genosetLongDesc}}
-      </div>
-      <div class="five columns detail-image">
-        <img ng-src="/images/detail-images/{{detail.id}}.jpg" alt="" />
+      <div class="row">
+        <div class="seven columns detail-description">
+          {{detail.genosetLongDesc}}
+        </div>
+        <div class="five columns detail-image">
+          <img ng-src="/images/detail-images/{{detail.id}}.jpg" alt="" />
+        </div>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="container">
-      <div class="seven columns genome-map-container">
-        <div class="genome-map-title">
-          Genome Map
+
+        <div class="seven columns flex-column genome-map-container">
+          <div class="genome-map-title">
+            Genome Map
+          </div>
+
+          <genome-chart data="detail.SNPs" class="flex-column genome-map">
+          </genome-chart>
         </div>
-        <genome-chart data="detail.SNPs">
-        </genome-chart>
-      </div>
-      <div class="five columns snp-table">
-        <div class="u-full-width table-head">
-          <div class="table-row">
-            <div class="table-cell">Associated SNPs</div>
-            <div class="table-cell">Gene</div>
-            <div class="table-cell">Chromosome</div>
-            <div class="table-cell">Genotypes</div>
+        <div class="five columns snp-table">
+          <div class="u-full-width table-head">
+            <div class="table-row">
+              <div class="table-cell">Associated SNPs</div>
+              <div class="table-cell">Gene</div>
+              <div class="table-cell">Chromosome</div>
+              <div class="table-cell">Genotypes</div>
+            </div>
+          </div>
+          <div class="u-full-width table-body">
+            <div ng-repeat="SNP in detail.SNPs" class="table-row">
+              <div class="table-cell">{{SNP.rsid}}</div>
+              <div class="table-cell">{{SNP.gene}}</div>
+              <div class="table-cell">{{SNP.chromosome}}</div>
+              <div class="table-cell">{{SNP.genotypePositive}}</div>
+            </div>
           </div>
         </div>
-        <div class="u-full-width table-body">
-          <div ng-repeat="SNP in detail.SNPs" class="table-row">
-            <div class="table-cell">{{SNP.rsid}}</div>
-            <div class="table-cell">{{SNP.gene}}</div>
-            <div class="table-cell">{{SNP.chromosome}}</div>
-            <div class="table-cell">{{SNP.genotypePositive}}</div>
-          </div>
-        </div>
       </div>
-    </div>
+
   </div>
-
-
 
 </div>
